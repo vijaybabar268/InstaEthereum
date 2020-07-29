@@ -1,8 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MySql.Data.Entity;
 
 namespace InstaEthereum.Models
 {
@@ -18,16 +22,41 @@ namespace InstaEthereum.Models
         }
     }
 
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("MySql_CS", throwIfV1Schema: false)
         {
+            this.Configuration.ValidateOnSaveEnabled = false;
         }
 
         public static ApplicationDbContext Create()
         {
+            DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
             return new ApplicationDbContext();
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Properties().Where(x =>
+                    x.PropertyType.FullName != null &&
+                    (x.PropertyType.FullName.Equals("System.String") &&
+                    !x.GetCustomAttributes(false).OfType<ColumnAttribute>().Any(q => q.TypeName != null &&
+                    q.TypeName.Equals("varchar(max)", StringComparison.InvariantCultureIgnoreCase)))).Configure(c =>
+                    c.HasColumnType("varchar(65000)"));
+
+            modelBuilder.Properties().Where(x =>
+                    x.PropertyType.FullName != null &&
+                    (x.PropertyType.FullName.Equals("System.String") &&
+                    !x.GetCustomAttributes(false).OfType<ColumnAttribute>().Any(q => q.TypeName != null &&
+                    q.TypeName.Equals("nvarchar", StringComparison.InvariantCultureIgnoreCase)))).Configure(c =>
+                    c.HasColumnType("varchar"));
+        }
     }
+
+
 }
