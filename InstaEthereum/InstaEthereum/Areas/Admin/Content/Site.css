@@ -54,6 +54,12 @@ textarea {
     font-weight: 400;
     font-size: 16px;
 }
+#MyNavbar ul li a {
+    color:#fff;
+}
+#MyNavbar ul li a:hover {
+    text-decoration:none;
+}
 #MyNavbar ul li:first-child{
     border-top: 1px solid #ccc;
 }
