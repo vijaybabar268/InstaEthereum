@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Insta Ethereum Admin</title>
+    @Styles.Render("~/Admin/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <div class="container-fluid body-content bg-dark">
+        <div class="row">
+            <div class="col-md-2 bg-primary" id="MyNavbar">
+                <div>
+                    <h3 class="text-center">Insta Ethereum</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Dashboard</li>
+                        <li class="list-group-item">User</li>
+                        <li class="list-group-item">Order</li>
+                        <li class="list-group-item">Mail</li>
+                        <li class="list-group-item">Set Price</li>
+                        <li class="list-group-item">Stock</li>
+                        <li class="list-group-item">P/L Acc</li>
+                        <li class="list-group-item">Market Time</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10 bg-info" id="MyContent">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
