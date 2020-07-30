@@ -1,7 +1,21 @@
-﻿<div class="my-header">
+﻿@using Microsoft.AspNet.Identity
+<div class="my-header">
     <div class="row top-bar">
-        <div class="col-md-12">
-            <p class="text-right">Hi, Admin</p>
+        <div class="col-md-12 text-right">
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Dashboard", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <ul style="display: inline-flex; list-style: none;padding-top: 18px;">
+                        <li style="padding-right:15px;">
+                            <a href="javascript:void(0)">Hello @User.Identity.GetUserName()!</a>
+                        </li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                    </ul>
+                }
+            }
         </div>
     </div>
 
