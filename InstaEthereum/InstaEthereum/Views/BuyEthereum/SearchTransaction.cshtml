@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Search Transaction";
+}
+
+<div id="card" style="height: 540px;width: 540px;">
+    <h5 id="card-header">Enter Transaction Id</h5>
+    <hr>
+    <div class="text-box">
+        <input type="text" class="enter-text" placeholder="Enter Your UPI Address">        
+    </div>
+    <div class="text-box">
+        <h5 id="price-text">&nbsp; &nbsp;<span class="span-1">Your wallet</span><span class="span-2">gehjsj78938</span></h5>
+    </div>
+    <div class="text-box">
+        <h5 id="price-text">&nbsp; &nbsp;<span class="span-1">Price</span><span class="span-2">20,200 INR</span></h5>
+    </div>
+    <div class="text-box">
+        <h5 id="price-text">&nbsp; &nbsp;<span class="span-1">Total Amount Payable</span><span class="span-2">31,500 INR</span></h5>
+        <p>Please confirm the above details</p>
+    </div>
+    <div id="main-buton" style="width:100%; text-align: center;">
+        @Html.ActionLink("Back to Home", "StepOne", "BuyEthereum", null, new { @class = "btn btn-primary", style = "width: 200px;height: 60px;padding-top: 16px;" })        
+    </div>
+</div>

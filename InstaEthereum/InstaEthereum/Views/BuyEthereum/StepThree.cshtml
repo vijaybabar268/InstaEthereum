@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "3";
+    ViewBag.ImageStepCount = "3.png";
+}
+
+<div class="content-div page3">
+    <div class="row">
+        <div class="col-md-12">
+            <h5 id="card-header">Enter Your Personal Details</h5>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 60px;">
+            <input type="text" class="form-control" placeholder="Enter your name" style="width: 80%; margin: 0 auto; height: 50px;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 15px;">
+            <input type="text" class="form-control" placeholder="Enter your name" style="width: 80%; margin: 0 auto; height: 50px;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 15px;">
+            <input type="text" class="form-control" placeholder="Enter your name" style="width: 80%; margin: 0 auto; height: 50px;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 45px;">
+            <p id="input-info">Your transaction details will be mailed to you.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            @Html.ActionLink("NEXT", "StepFour", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 0px;width: 200px;padding: 15px 0; " })
+        </div>
+    </div>
+</div>

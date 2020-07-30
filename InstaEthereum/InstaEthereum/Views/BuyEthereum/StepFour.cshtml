@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "4";
+    ViewBag.ImageStepCount = "4.png";
+}
+
+<div class="content-div page4">
+    <div class="row">
+        <div class="col-md-12">
+            <h5 id="card-header">Confirm</h5>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 60px;">
+            <p id="price-text"><text class="">Your Order</text> = <span class="">1.55 ETH</span></p>
+            <p id="price-text"><span class="">Your wallet</span> = <span class="">gehjsj78938</span></p>
+            <p id="price-text"><span class="">Price</span> = <span class="">20,200 INR</span></p>
+            <p id="price-text"><span class="">Total Amount Payable</span> = <span class="">31,500 INR</span></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 45px;">
+            <p id="input-info">Please confirm the above details.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            @Html.ActionLink("Cancel", "StepThree", "BuyEthereum", null, new { @class = "btn btn-info", style = "width: 200px;padding: 15px 0;" })
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            @Html.ActionLink("Confirm", "StepFive", "BuyEthereum", null, new { @class = "btn btn-primary", style = "width: 200px;padding: 15px 0;" })
+        </div>
+    </div>
+</div>
