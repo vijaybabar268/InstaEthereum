@@ -56,6 +56,8 @@ namespace InstaEthereum.Models
                     q.TypeName.Equals("nvarchar", StringComparison.InvariantCultureIgnoreCase)))).Configure(c =>
                     c.HasColumnType("varchar"));
         }
+
+        
     }
 
 

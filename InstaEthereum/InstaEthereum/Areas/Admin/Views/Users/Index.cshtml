@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<InstaEthereum.Models.ApplicationUser>
+
+@{
     ViewBag.Title = "Users";
 }
 
@@ -7,4 +9,35 @@
 
 <div class="main-content">
     
+    <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>ETH Purchased</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.UserName</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.Email</td>
+                        <td></td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
 </div>
