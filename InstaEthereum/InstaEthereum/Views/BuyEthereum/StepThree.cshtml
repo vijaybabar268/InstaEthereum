@@ -1,38 +1,47 @@
-﻿@{
+﻿@model InstaEthereum.Models.NewRegisterViewModel
+
+@{
     ViewBag.Title = "3";
     ViewBag.ImageStepCount = "3.png";
 }
 
 <div class="content-div page3">
-    <div class="row">
-        <div class="col-md-12">
-            <h5 id="card-header">Enter Your Personal Details</h5>
+    @using (@Html.BeginForm("StepThreeProcess", "BuyEthereum", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5 id="card-header">Enter Your Personal Details</h5>
+            </div>
         </div>
-    </div>
-    <div class="divider"></div>
-    <div class="row">
-        <div class="col-md-12" style="margin-top: 60px;">
-            <input type="text" class="form-control my-form-control" placeholder="Enter your name"/>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 60px;">
+                <input type="text" name="UserName" class="form-control my-form-control" placeholder="Enter your name" />
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12" style="margin-top: 15px;">
-            <input type="text" class="form-control my-form-control" placeholder="Enter your mobile"/>
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 15px;">
+                <input type="text" name="PhoneNumber" class="form-control my-form-control" placeholder="Enter your mobile" />
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12" style="margin-top: 15px;">
-            <input type="text" class="form-control my-form-control" placeholder="Enter your email" />
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 15px;">
+                <input type="text" name="Email" class="form-control my-form-control" placeholder="Enter your email" />
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12" style="margin-top: 45px;">
-            <p id="input-info">Your transaction details will be mailed to you.</p>
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 45px;">
+                <p id="input-info">Your transaction details will be mailed to you.</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            @Html.ActionLink("NEXT", "StepFour", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 0px;width: 200px;padding: 15px 0; " })
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary" style="margin-top: 0px; width: 200px; padding: 15px 0;">NEXT</button>
+                @*@Html.ActionLink("NEXT", "StepFour", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 0px;width: 200px;padding: 15px 0; " })*@
+            </div>
         </div>
-    </div>
+    }
+
 </div>
