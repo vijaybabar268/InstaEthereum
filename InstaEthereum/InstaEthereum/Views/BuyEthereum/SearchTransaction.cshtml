@@ -3,23 +3,39 @@
     ViewBag.Title = "Search Transaction";
 }
 
-<div id="card" style="height: 540px;width: 540px;">
-    <h5 id="card-header">Enter Transaction Id</h5>
-    <hr>
-    <div class="text-box">
-        <input type="text" class="enter-text" placeholder="Enter Your UPI Address">        
+<div class="content-div page5">
+    <div class="row">
+        <div class="col-md-12">
+            <h5 id="card-header">Enter Transaction Id</h5>
+        </div>
     </div>
-    <div class="text-box">
-        <h5 id="price-text">&nbsp; &nbsp;<span class="span-1">Your wallet</span><span class="span-2">gehjsj78938</span></h5>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 60px;">
+            <input type="text" class="form-control" placeholder="EnterTransaction Id" value="87954820" style="width: 80%; margin: 0 auto; height: 50px;" />
+        </div>
     </div>
-    <div class="text-box">
-        <h5 id="price-text">&nbsp; &nbsp;<span class="span-1">Price</span><span class="span-2">20,200 INR</span></h5>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 20px;">
+            <p id="price-text"><span class="">Status</span> = <span class="text-warning">In Process</span></p>
+        </div>
     </div>
-    <div class="text-box">
-        <h5 id="price-text">&nbsp; &nbsp;<span class="span-1">Total Amount Payable</span><span class="span-2">31,500 INR</span></h5>
-        <p>Please confirm the above details</p>
+    <div class="divider" style="margin: 0 60px;"></div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 20px;">
+            <p id="price-text"><text class="">Your wallet</text> = <span class="">gehjsj78938</span></p>
+            <p id="price-text"><span class="">Price</span> = <span class="">20,200 INR</span></p>
+            <p id="price-text"><span class="">Total Amount Payable</span> = <span class="">31,500 INR</span></p>
+        </div>
     </div>
-    <div id="main-buton" style="width:100%; text-align: center;">
-        @Html.ActionLink("Back to Home", "StepOne", "BuyEthereum", null, new { @class = "btn btn-primary", style = "width: 200px;height: 60px;padding-top: 16px;" })        
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 45px;">
+            <p id="input-info">Please confirm the above details.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            @Html.ActionLink("Back to Home", "StepOne", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 50px;width: 200px;padding: 15px 0; " })
+        </div>
     </div>
 </div>

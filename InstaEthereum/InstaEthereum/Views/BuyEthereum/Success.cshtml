@@ -4,16 +4,36 @@
     ViewBag.ImageStepCount = "5.png";
 }
 
-<div id="card" style="height: 713px;width: 540px;">
-    <h5 id="card-header" style="color: #00c569;">Success</h5>
-    <hr>
-    <div class="text-box">
-        <img src="~/Content/img/success.png" style="padding: 30px;width: 208px;">
-        <h3 style="color: rgb(0,197,105);">Congratulations</h3>
-        <p style="line-height: 1.6;padding: 10px;">Your transaction was successful. We will transfer Ethereum to your wallet soon. Transaction hash will be mailed to you.</p>
-        <h5 id="price-text">Your Transaction ID : 112545</h5>
+<div class="content-div page5">
+    <div class="row">
+        <div class="col-md-12">
+            <h5 id="card-header" style="color:green;">Success</h5>
+        </div>
     </div>
-    <div id="main-buton">
-        <button class="btn btn-primary" id="button-main" type="button" style="width: 200px;height: 60px;">Thank You</button>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-md-12 text-center" style="margin-top: 30px;">
+            <img src="~/Content/img/success.png" style="padding: 30px;width: 208px;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3 style="color: green;">Congratulations</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center" style="padding: 15px 85px;">
+            <h5 id="price-text" style="font-size: 14px;font-weight:300;">Your transaction was successful. We will transfer Ethereum to your wallet soon. Transaction hash will be mailed to you.</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h5 id="price-text">Your Transaction ID : 112545</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            @Html.ActionLink("Thank You", "Success", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 35px;width: 200px;padding: 15px 0; " })
+        </div>
     </div>
 </div>
