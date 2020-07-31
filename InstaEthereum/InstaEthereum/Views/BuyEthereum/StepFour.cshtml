@@ -12,10 +12,28 @@
     <div class="divider"></div>
     <div class="row">
         <div class="col-md-12" style="margin-top: 60px;">
-            <p id="price-text"><text class="">Your Order</text> = <span class="">1.55 ETH</span></p>
-            <p id="price-text"><span class="">Your wallet</span> = <span class="">gehjsj78938</span></p>
-            <p id="price-text"><span class="">Price</span> = <span class="">20,200 INR</span></p>
-            <p id="price-text"><span class="">Total Amount Payable</span> = <span class="">31,500 INR</span></p>
+            <table style="margin: 0 auto;">
+                <tr>
+                    <td style="width: 200px;">Your Order</td>
+                    <td>=</td>
+                    <td class="td-right-align">1.55 ETH</td>
+                </tr>
+                <tr>
+                    <td>Your wallet</td>
+                    <td>=</td>
+                    <td class="td-right-align">gehjsj78938</td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>=</td>
+                    <td class="td-right-align">20,200 INR</td>
+                </tr>
+                <tr>
+                    <td>Total Amount Payable</td>
+                    <td>=</td>
+                    <td class="td-right-align">31,500 INR</td>
+                </tr>
+            </table>            
         </div>
     </div>
     <div class="row">
@@ -25,7 +43,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-center" style="margin-top: 40px;">
-            @Html.ActionLink("Cancel", "StepThree", "BuyEthereum", null, new { @class = "btn btn-info", style = "width: 200px;padding: 15px 0;" })
+            @Html.ActionLink("Cancel", "StepThree", "BuyEthereum", null, new { @class = "btn btn-default", style = "width: 200px;padding: 15px 0;border:1px solid #ccc;" })
             &nbsp;&nbsp;&nbsp;&nbsp;
             @Html.ActionLink("Confirm", "StepFive", "BuyEthereum", null, new { @class = "btn btn-primary", style = "width: 200px;padding: 15px 0;" })
         </div>

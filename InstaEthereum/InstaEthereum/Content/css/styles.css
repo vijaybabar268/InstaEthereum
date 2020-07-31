@@ -247,3 +247,22 @@ body {
     padding-top:10px;
     border-bottom:1px solid #ccc;
 }
+
+.form-control {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+}
+.my-form-control {
+    width: 80%;
+    margin: 0 auto;
+    height: 50px;    
+}
+.td-right-align {
+    text-align: right;
+    display: block;
+    padding-left: 20px;
+}
+.btn{
+    font-size:14px;
+    font-weight:400;
+}
