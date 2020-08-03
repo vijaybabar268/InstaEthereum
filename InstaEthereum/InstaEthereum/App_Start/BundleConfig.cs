@@ -20,15 +20,15 @@ namespace InstaEthereum
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Content/bootstrap/css/bootstrap.min.js"));
+                      "~/Assets/bootstrap/css/bootstrap.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap/css/bootstrap.min.css",                      
-                      "~/Content/css/styles.css"));
+                      "~/Assets/bootstrap/css/bootstrap.min.css",
+                      "~/Assets/css/styles.css"));
 
             /* Admin */
             bundles.Add(new StyleBundle("~/Admin/Content/css").Include(
-                "~/Content/bootstrap.css",                
+                "~/Assets/bootstrap.css",                
                 "~/Areas/Admin/Content/Site.css"
                 ));
         }
