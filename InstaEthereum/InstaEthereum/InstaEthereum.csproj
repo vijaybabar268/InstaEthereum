@@ -61,12 +61,6 @@
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MySql.Data, Version=6.10.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.10.9\lib\net452\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.Entity.6.10.9\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
-    </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
@@ -216,13 +210,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007291902530_InitialModel.cs" />
-    <Compile Include="Migrations\202007291902530_InitialModel.Designer.cs">
-      <DependentUpon>202007291902530_InitialModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007311212387_AddedWalletAddressToUser.cs" />
-    <Compile Include="Migrations\202007311212387_AddedWalletAddressToUser.Designer.cs">
-      <DependentUpon>202007311212387_AddedWalletAddressToUser.cs</DependentUpon>
+    <Compile Include="Migrations\202008031034536_InitialModelCreated.cs" />
+    <Compile Include="Migrations\202008031034536_InitialModelCreated.Designer.cs">
+      <DependentUpon>202008031034536_InitialModelCreated.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -334,11 +324,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007291902530_InitialModel.resx">
-      <DependentUpon>202007291902530_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007311212387_AddedWalletAddressToUser.resx">
-      <DependentUpon>202007311212387_AddedWalletAddressToUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008031034536_InitialModelCreated.resx">
+      <DependentUpon>202008031034536_InitialModelCreated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
