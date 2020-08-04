@@ -18,30 +18,45 @@
         <div class="divider"></div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
-                <input type="text" name="UserName" class="form-control my-form-control" placeholder="Enter your name" />
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control my-form-control", placeholder = "Enter your name" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                @*<input type="text" name="UserName" class="form-control my-form-control" placeholder="Enter your name" />*@
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 15px;">
-                <input type="text" name="PhoneNumber" class="form-control my-form-control" placeholder="Enter your mobile" />
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control my-form-control", placeholder = "Enter your mobile" })
+                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                @*<input type="text" name="PhoneNumber" class="form-control my-form-control" placeholder="Enter your mobile" />*@
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 15px;">
-                <input type="text" name="Email" class="form-control my-form-control" placeholder="Enter your email" />
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control my-form-control", placeholder = "Enter your email" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                @*<input type="text" name="Email" class="form-control my-form-control" placeholder="Enter your email" />*@
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 45px;">
-                <p id="input-info">Your transaction details will be mailed to you.</p>
+                <p id="input-info">Personal details will ask you only first time.</p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center">
-                <button type="submit" class="btn btn-primary" style="margin-top: 0px; width: 200px; padding: 15px 0;">NEXT</button>
+                <button type="submit" class="btn btn-primary" style="margin-top: 0px; width: 200px; padding: 15px 0;">Register</button>
                 @*@Html.ActionLink("NEXT", "StepFour", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 0px;width: 200px;padding: 15px 0; " })*@
             </div>
         </div>
     }
 
 </div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("#img").hide();
+        })
+    </script>
+}

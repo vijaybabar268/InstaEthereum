@@ -68,7 +68,7 @@ namespace InstaEthereum.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
+                ModelState.AddModelError("", "Email ID is not registered.");
                 return View("StepStart", model);
             }
 
@@ -159,7 +159,7 @@ namespace InstaEthereum.Controllers
                 }                
             }
 
-            return RedirectToAction("StepThree", model);
+            return View("StepThree", model);
         }
         #endregion
 
