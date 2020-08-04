@@ -5,25 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Insta Ethereum</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    @Scripts.Render("~/bundles/modernizr")    
 </head>
 <body>
-    <div class="container-fluid">
+    <div style="width: 99%;">
         <div class="row" id="header">
-            <div class="col-md-12">
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
                 <h4 id="main-header">Insta Ethereum</h4>
             </div>
         </div>
+    </div>
+
+    <div class="container-fluid">        
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
                 <h5 id="heading">Buy Ethereum</h5>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
                 @if (ViewBag.ImageStepCount != null)
                 {
                     <div id="img">
@@ -36,7 +38,7 @@
         @RenderBody()
 
         <div class="row">
-            <div class="col-md-12" id="footer">
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" id="footer">
                 <h4 id="main-footer">Insta Ethereum</h4>
             </div>
         </div>

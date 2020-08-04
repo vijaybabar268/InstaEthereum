@@ -1,6 +1,7 @@
 body {
-  background-color: #E9E9E9;
-  font-family: Poppins, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";  
+    background-color: #E9E9E9;
+    font-family: Poppins, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    width: 100%;
 }
 
 #main-header {
@@ -197,7 +198,7 @@ body {
 
 @media (max-width: 550px) {
   #img-1 {
-    width: 330px !important;    
+    width: 320px !important;    
     margin-bottom: 10px;
   }
 }
@@ -228,8 +229,8 @@ body {
 
 /*Added Vijay Babar*/
 .content-div {
-    width:540px;
-    height:440px;
+   /* width:540px;
+    height:440px;*/
     margin: 20px auto;
     background:#fff;
     padding: 10px 0;
@@ -265,4 +266,183 @@ body {
 .btn{
     font-size:14px;
     font-weight:400;
+}
+
+.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+}
+
+
+
+
+
+
+
+/*// Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+    .container-fluid {
+        /*background: red;*/
+        width: 100%;
+    }
+    .page3 {
+        height: 450px;
+        margin-bottom: 60px;
+    }
+    .page4 {
+        height: 422px;
+        margin-bottom: 65px;
+    }
+    .page5 {
+        height: 518px;
+    }
+    .confirm-div {
+        padding: 0 30px;
+    }
+    .button-div {
+        margin-top: 10px !important;
+    }
+    .btn-cancel{
+        margin-bottom:5px;
+    }
+    .thank-you-btn-div {
+        margin-bottom: 65px;
+    }
+    .thank-you-btn{
+        margin-top:10px !important;
+    }
+
+    #input-info {        
+        font-size: 12px;        
+    }
+    .my-form-control {
+        font-size: 14px !important;
+    }
+    .confirm-div {        
+        font-size: 13px;
+    }
+    .success-msg-div {
+        padding: 15px 30px !important;
+    }
+    .success-img-div {
+        margin-top: 18px !important;
+    }
+    .search-transaction-pg {
+        height: 525px;
+        margin-bottom: 55px;
+    }
+}
+
+/*// Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .container-fluid {
+        /*background: green;*/
+        width: 545px;
+    }
+    #img-1 {
+        width: 510px;
+    }
+    .search-transaction-pg {
+        height: 555px;
+        margin-bottom: 60px;
+    }
+    .page3 {
+        height: 452px;
+    }
+    .page4 {
+        height: 415px;
+    }
+    .page5 {
+        height: 555px;
+        margin-bottom: 60px;
+    }
+}
+
+/*// Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .container-fluid {
+        /*background: blue;*/
+        width: 545px;
+    }
+    #img-1 {
+        width: 510px;
+    }
+
+    .search-transaction-pg {
+        height: 555px;
+        margin-bottom: 60px;
+    }
+
+    .page3 {
+        height: 452px;
+    }
+
+    .page4 {
+        height: 415px;
+    }
+
+    .page5 {
+        height: 555px;
+        margin-bottom: 60px;
+    }
+}
+
+/*// Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .container-fluid {
+        /*background: yellow;*/
+        width: 545px;
+    }
+    #img-1 {
+        width: 510px;
+    }
+
+    .search-transaction-pg {
+        height: 555px;
+        margin-bottom: 60px;
+    }
+
+    .page3 {
+        height: 452px;
+    }
+
+    .page4 {
+        height: 415px;
+    }
+
+    .page5 {
+        height: 555px;
+        margin-bottom: 60px;
+    }
+}
+
+/*// Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+    .container-fluid {
+        /*background: pink;*/
+        width: 545px;
+    }
+    #img-1 {
+        width: 510px;
+    }
+
+    .search-transaction-pg {
+        height: 555px;
+        margin-bottom: 60px;
+    }
+
+    .page3 {
+        height: 465px;        
+    }
+
+    .page4 {
+        height: 430px;
+    }
+
+    .page5 {
+        height: 570px;
+        margin-bottom: 60px;
+    }
+    .content-div {
+        padding-bottom:30px;        
+    }
 }
