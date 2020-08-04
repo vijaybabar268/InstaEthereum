@@ -291,8 +291,19 @@ body {
     color: #fff;
     font-weight: 300;
 }
-
-
+.field-validation-error {
+    text-align: center;
+    display: block;
+}
+.validation-summary-errors {
+    text-align: center;
+    padding-top: 15px;
+}
+.validation-summary-errors ul {
+    list-style:none;
+    padding: 0;
+    margin: 0;
+}
 
 
 

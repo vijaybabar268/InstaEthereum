@@ -12,6 +12,7 @@ namespace InstaEthereum.Controllers
 {
     public class BuyEthereumController : Controller
     {
+        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public BuyEthereumController()
@@ -19,9 +20,10 @@ namespace InstaEthereum.Controllers
 
         }
 
-        public BuyEthereumController(ApplicationUserManager userManager)
+        public BuyEthereumController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
+            SignInManager = signInManager;
         }
 
         public ApplicationUserManager UserManager
@@ -33,6 +35,53 @@ namespace InstaEthereum.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ActionResult StepStart()
+        {            
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> StepStartProcess(UserLoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("StepStart", model);
+            }
+
+            var user = UserManager.FindByEmail(model.Email);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View("StepStart", model);
+            }
+
+            var result = await SignInManager.PasswordSignInAsync(user.UserName, "Pass123!@#", true, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("StepOne");
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View("StepStart", model);
             }
         }
 
@@ -70,9 +119,11 @@ namespace InstaEthereum.Controllers
                 Session["WalletAddress"] = wallet_address;
             }
 
-            return RedirectToAction("StepThree");
+            //return RedirectToAction("StepThree");
+            return RedirectToAction("StepFour");
         }
 
+        #region User Registration
         public ActionResult StepThree()
         {
             return View();
@@ -88,23 +139,29 @@ namespace InstaEthereum.Controllers
                 {
                     UserName = model.UserName,
                     PhoneNumber = model.PhoneNumber,
-                    Email = model.Email,
-                    WalletAddress = Session["WalletAddress"].ToString()
+                    Email = model.Email                    
                 };
 
-                var result = await UserManager.CreateAsync(user, "Pass123!@#");
-
-                if (result.Succeeded)
+                try
                 {
-                    // Assign role to register user
-                    await UserManager.AddToRoleAsync(user.Id, "User");
+                    var result = await UserManager.CreateAsync(user, "Pass123!@#");
 
-                    return RedirectToAction("StepFour");
+                    if (result.Succeeded)
+                    {
+                        await UserManager.AddToRoleAsync(user.Id, "User");
+
+                        return RedirectToAction("StepStart");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }                
             }
 
-            return RedirectToAction("StepThree");
+            return RedirectToAction("StepThree", model);
         }
+        #endregion
 
         public ActionResult StepFour()
         {

@@ -16,7 +16,7 @@ namespace InstaEthereum
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "BuyEthereum", action = "StepOne", id = UrlParameter.Optional }
+                defaults: new { controller = "BuyEthereum", action = "StepStart", id = UrlParameter.Optional }
             );
         }
     }
