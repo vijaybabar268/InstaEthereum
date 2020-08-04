@@ -38,8 +38,13 @@
         @RenderBody()
 
         <div class="row">
-            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" id="footer">
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center" id="footer">
                 <h4 id="main-footer">Insta Ethereum</h4>
+                <ul class="footer-nav">
+                    <li>@Html.ActionLink("Search Transaction", "SearchTransaction", "BuyEthereum")</li>
+                    <li class="pipe-divider">|</li>
+                    <li>@Html.ActionLink("Support", "Support", "BuyEthereum")</li>
+                </ul>                                
             </div>
         </div>
     </div>    
