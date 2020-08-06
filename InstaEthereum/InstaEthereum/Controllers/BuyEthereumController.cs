@@ -12,12 +12,13 @@ namespace InstaEthereum.Controllers
 {
     public class BuyEthereumController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public BuyEthereumController()
         {
-
+            _context = new ApplicationDbContext();
         }
 
         public BuyEthereumController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -57,32 +58,22 @@ namespace InstaEthereum.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> StepStartProcess(UserLoginViewModel model)
+        public ActionResult StepStartProcess(UserLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("StepStart", model);
             }
 
-            var user = UserManager.FindByEmail(model.Email);
-
+            var user = _context.AspNetUsers.FirstOrDefault(u => u.Email.ToLower().Trim() == model.Email.ToLower().Trim());
+                        
             if (user == null)
             {
                 ModelState.AddModelError("", "Email ID is not registered.");
                 return View("StepStart", model);
             }
 
-            var result = await SignInManager.PasswordSignInAsync(user.UserName, "Pass123!@#", true, shouldLockout: false);
-
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToAction("StepOne");
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View("StepStart", model);
-            }
+            return RedirectToAction("StepOne");                      
         }
 
         public ActionResult StepOne()
@@ -131,27 +122,29 @@ namespace InstaEthereum.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> StepThreeProcess(NewRegisterViewModel model)
+        public ActionResult StepThreeProcess(NewRegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = model.UserName,
-                    PhoneNumber = model.PhoneNumber,
-                    Email = model.Email                    
-                };
-
+            {                
                 try
                 {
-                    var result = await UserManager.CreateAsync(user, "Pass123!@#");
-
-                    if (result.Succeeded)
+                    var user = new AspNetUser
                     {
-                        await UserManager.AddToRoleAsync(user.Id, "User");
+                        UserName = model.UserName,
+                        PhoneNumber = model.PhoneNumber,
+                        Email = model.Email
+                    };
 
-                        return RedirectToAction("StepStart");
-                    }
+                    _context.AspNetUsers.Add(user);
+                    _context.SaveChanges();
+
+                    var userRoleAssigned = new AspNetUserRole() {  RoleId = 2, UserId = user.Id };
+
+                    _context.AspNetUserRoles.Add(userRoleAssigned);
+                    _context.SaveChanges();
+
+
+                    return RedirectToAction("StepStart");
                 }
                 catch (Exception ex)
                 {

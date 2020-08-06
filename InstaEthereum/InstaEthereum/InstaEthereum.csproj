@@ -61,6 +61,12 @@
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.10.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.9\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.10.9\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
@@ -210,18 +216,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008031034536_InitialModelCreated.cs" />
-    <Compile Include="Migrations\202008031034536_InitialModelCreated.Designer.cs">
-      <DependentUpon>202008031034536_InitialModelCreated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202008041214382_SetNullableWalletAddress.cs" />
-    <Compile Include="Migrations\202008041214382_SetNullableWalletAddress.Designer.cs">
-      <DependentUpon>202008041214382_SetNullableWalletAddress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetUserRole.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\UserLoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -248,6 +249,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Assets\Site.css" />
+    <Content Include="Models\instaethereumdb_schema.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -328,14 +330,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202008031034536_InitialModelCreated.resx">
-      <DependentUpon>202008031034536_InitialModelCreated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008041214382_SetNullableWalletAddress.resx">
-      <DependentUpon>202008041214382_SetNullableWalletAddress.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

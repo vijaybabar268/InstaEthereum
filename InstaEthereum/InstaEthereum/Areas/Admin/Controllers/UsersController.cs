@@ -18,7 +18,7 @@ namespace InstaEthereum.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var users = _context.Users.ToList();
+            var users = _context.AspNetUsers.ToList();
 
             return View(users);
         }
