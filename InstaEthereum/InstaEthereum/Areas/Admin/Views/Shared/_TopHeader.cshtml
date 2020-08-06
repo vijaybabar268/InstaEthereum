@@ -1,8 +1,12 @@
-﻿@using Microsoft.AspNet.Identity
+﻿﻿@if (@Session["AdminId"] == null)
+{
+    Response.Redirect("~/Admin/Login/Index");
+}
+
 <div class="my-header">
     <div class="row top-bar">
         <div class="col-md-12 text-right">
-            @if (Request.IsAuthenticated)
+            @if (@Session["AdminId"] != null)
             {
                 using (Html.BeginForm("LogOff", "Dashboard", FormMethod.Post, new { id = "logoutForm" }))
                 {
@@ -10,7 +14,7 @@
 
                     <ul style="display: inline-flex; list-style: none;padding-top: 18px;">
                         <li style="padding-right:15px;">
-                            <a href="javascript:void(0)">Hello @User.Identity.GetUserName()!</a>
+                            <a href="javascript:void(0)">Hello @Session["AdminEmail"].ToString()</a>
                         </li>
                         <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
                     </ul>

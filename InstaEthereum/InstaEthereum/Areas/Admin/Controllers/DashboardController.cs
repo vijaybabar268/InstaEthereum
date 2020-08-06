@@ -9,8 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
 namespace InstaEthereum.Areas.Admin.Controllers
-{
-    [Authorize(Roles = RoleName.Admin )]
+{    
     public class DashboardController : Controller
     {        
         public ActionResult Index()
@@ -18,24 +17,16 @@ namespace InstaEthereum.Areas.Admin.Controllers
             return View();
         }
 
-        // Admin Logout
+        // Admin Log Off
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.RemoveAll();
 
             var baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority;
-            var url = baseUrl + "/Account/Login";
+            var url = baseUrl + "/Admin/Login/SignIn";
             return Redirect(url);
-        }
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        }               
     }
 }

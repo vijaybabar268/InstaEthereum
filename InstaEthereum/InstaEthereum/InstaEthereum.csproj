@@ -208,6 +208,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -229,7 +230,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Content\Site.css" />
+    <Content Include="Areas\Admin\Content\css\StyleAdmin.css" />
     <Content Include="Assets\bootstrap-theme.css" />
     <Content Include="Assets\bootstrap-theme.min.css" />
     <Content Include="Assets\bootstrap.css" />
@@ -256,10 +257,13 @@
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_LayoutPage2.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdminPanel.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_TopHeader.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\SignIn.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdminLogin.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\SignUp.cshtml" />
     <None Include="Properties\PublishProfiles\instacrypto.io - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -316,6 +320,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Content\img\" />
+    <Folder Include="Areas\Admin\Content\js\" />
     <Folder Include="Areas\Admin\Data\" />
   </ItemGroup>
   <ItemGroup>

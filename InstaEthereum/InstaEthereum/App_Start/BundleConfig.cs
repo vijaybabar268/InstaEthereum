@@ -28,9 +28,8 @@ namespace InstaEthereum
 
             /* Admin */
             bundles.Add(new StyleBundle("~/Admin/Content/css").Include(
-                "~/Assets/bootstrap.css",                
-                "~/Areas/Admin/Content/Site.css"
-                ));
+                "~/Assets/bootstrap.css",
+                "~/Areas/Admin/Content/css/StyleAdmin.css"));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InstaEthereum.Models.ApplicationUser>
+﻿@model IEnumerable<InstaEthereum.Models.AspNetUser>
 
 @{
     ViewBag.Title = "Users";
@@ -16,6 +16,7 @@
                 <th>Name</th>
                 <th>Mobile</th>
                 <th>Email</th>
+                <th>Wallet Address</th>
                 <th>ETH Purchased</th>
                 <th>Action</th>
             </tr>
@@ -29,6 +30,7 @@
                         <td>@item.UserName</td>
                         <td>@item.PhoneNumber</td>
                         <td>@item.Email</td>
+                        <td>@item.WalletAddress</td>
                         <td></td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
