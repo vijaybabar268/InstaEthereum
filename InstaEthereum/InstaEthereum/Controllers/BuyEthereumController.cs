@@ -126,9 +126,13 @@ namespace InstaEthereum.Controllers
 
         #region User Registration
         public ActionResult StepThree(string email)
-        {
-            ViewBag.Email = email;
-            return View();
+        {            
+            var model = new NewRegisterViewModel
+            {
+                Email = email
+            };
+
+            return View("StepThree", model);
         }
 
         [HttpPost]

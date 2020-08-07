@@ -1,15 +1,14 @@
 ﻿@model InstaEthereum.Models.NewRegisterViewModel
 
 @{
-    ViewBag.Title = "3";
-    ViewBag.ImageStepCount = "3.png";
+    ViewBag.Title = "1";
+    ViewBag.ImageStepCount = "1.png";
 }
 
 <div class="content-div page3">
     @using (@Html.BeginForm("StepThreeProcess", "BuyEthereum", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        @Html.Hidden("Email", ((string)@ViewBag.Email))
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
                 <h5 id="card-header">Enter Your Personal Details</h5>
@@ -18,6 +17,12 @@
         <div class="divider"></div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
+                @Html.TextBox("Email", (string)@ViewBag.Email, new { @class = "form-control my-form-control", placeholder = "Enter your email", Readonly = "Readonly" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 15px;">
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control my-form-control", placeholder = "Enter your name" })
                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                 @*<input type="text" name="UserName" class="form-control my-form-control" placeholder="Enter your name" />*@
@@ -30,12 +35,6 @@
                 @*<input type="text" name="PhoneNumber" class="form-control my-form-control" placeholder="Enter your mobile" />*@
             </div>
         </div>
-        @*<div class="row">
-            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 15px;">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control my-form-control", placeholder = "Enter your email" })
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })                
-            </div>
-        </div>*@
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 45px;">
                 <p id="input-info">Personal details will ask you only first time.</p>
@@ -53,9 +52,5 @@
 
 @section Scripts
 {
-    <script>
-        $(function () {
-            $("#img").hide();
-        })
-    </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }
