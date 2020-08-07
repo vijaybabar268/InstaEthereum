@@ -69,7 +69,17 @@ namespace InstaEthereum.Controllers
                         
             if (user == null)
             {
-                ModelState.AddModelError("", "Email ID is not registered.");
+                //ModelState.AddModelError("", "Email ID is not registered.");
+                //return View("StepStart", model);
+
+                return RedirectToAction("StepThree", new { Email = model.Email });
+            }
+
+            var userRole = _context.AspNetUserRoles.FirstOrDefault(r => r.UserId == user.Id && r.RoleId == 2);
+
+            if (userRole == null)
+            {
+                ModelState.AddModelError("", "Invalid login attempts.");
                 return View("StepStart", model);
             }
 
@@ -115,8 +125,9 @@ namespace InstaEthereum.Controllers
         }
 
         #region User Registration
-        public ActionResult StepThree()
+        public ActionResult StepThree(string email)
         {
+            ViewBag.Email = email;
             return View();
         }
 
@@ -144,7 +155,8 @@ namespace InstaEthereum.Controllers
                     _context.SaveChanges();
 
 
-                    return RedirectToAction("StepStart");
+                    //return RedirectToAction("StepStart");
+                    return RedirectToAction("StepOne");
                 }
                 catch (Exception ex)
                 {
