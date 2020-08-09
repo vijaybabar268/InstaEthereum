@@ -1,5 +1,6 @@
 ﻿using InstaEthereum.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -52,45 +53,36 @@ namespace InstaEthereum.Controllers
         }
 
         public ActionResult StepStart()
-        {            
+        {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StepStartProcess(UserLoginViewModel model)
+        public async Task<ActionResult> StepStartProcess(UserLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("StepStart", model);
             }
 
-            var user = _context.AspNetUsers.FirstOrDefault(u => u.Email.ToLower().Trim() == model.Email.ToLower().Trim());
-                        
+            var user = _context.Users
+                        .FirstOrDefault(r => r.Email.ToLower().Trim() == model.Email.ToLower().Trim() && r.Roles.Any(u => u.RoleId == "585e06f7-bbdd-4f85-b6ae-d0d0f50f21b4"));
+
             if (user == null)
             {
-                //ModelState.AddModelError("", "Email ID is not registered.");
-                //return View("StepStart", model);
-
                 return RedirectToAction("StepThree", new { Email = model.Email });
             }
 
-            var userRole = _context.AspNetUserRoles.FirstOrDefault(r => r.UserId == user.Id && r.RoleId == 2);
+            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-            if (userRole == null)
-            {
-                ModelState.AddModelError("", "Invalid login attempts.");
-                return View("StepStart", model);
-            }
-
-            return RedirectToAction("StepOne");                      
+            return RedirectToAction("StepOne");
         }
 
         public ActionResult StepOne()
         {
             Session.Remove("EthereumQty");
-            Session.Remove("WalletAddress");
-
+            
             return View();
         }
 
@@ -113,20 +105,35 @@ namespace InstaEthereum.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StepTwoProcess(string wallet_address)
+        public async Task<ActionResult> StepTwoProcess(string wallet_address)
         {
-            if (!string.IsNullOrWhiteSpace(wallet_address))
+            if (!ModelState.IsValid)
             {
-                Session["WalletAddress"] = wallet_address;
+                ModelState.AddModelError("", "Something went wrong.");
+                return View("StepTwo");
+            }
+            
+            var userId = User.Identity.GetUserId();
+            var userInDb = _context.Users.SingleOrDefault(x => x.Id == userId);
+
+            if (userInDb == null)
+            {
+                return HttpNotFound();
             }
 
-            //return RedirectToAction("StepThree");
+            userInDb.WalletAddress = wallet_address;
+            
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var manager = new UserManager<ApplicationUser>(store);
+            await manager.UpdateAsync(userInDb);
+            _context.SaveChanges();
+                        
             return RedirectToAction("StepFour");
         }
 
         #region User Registration
         public ActionResult StepThree(string email)
-        {            
+        {
             var model = new NewRegisterViewModel
             {
                 Email = email
@@ -137,35 +144,27 @@ namespace InstaEthereum.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StepThreeProcess(NewRegisterViewModel model)
+        public async Task<ActionResult> StepThreeProcess(NewRegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {                
-                try
+            {
+                var user = new ApplicationUser
                 {
-                    var user = new AspNetUser
-                    {
-                        UserName = model.UserName,
-                        PhoneNumber = model.PhoneNumber,
-                        Email = model.Email
-                    };
+                    UserName = model.UserName,
+                    PhoneNumber = model.PhoneNumber,
+                    Email = model.Email
+                };
 
-                    _context.AspNetUsers.Add(user);
-                    _context.SaveChanges();
+                var result = await UserManager.CreateAsync(user, "Pass@12345");
 
-                    var userRoleAssigned = new AspNetUserRole() {  RoleId = 2, UserId = user.Id };
+                if (result.Succeeded)
+                {                    
+                    await UserManager.AddToRoleAsync(user.Id, "User");
 
-                    _context.AspNetUserRoles.Add(userRoleAssigned);
-                    _context.SaveChanges();
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-
-                    //return RedirectToAction("StepStart");
-                    return RedirectToAction("StepOne");
+                    return RedirectToAction("StepOne");                    
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }                
             }
 
             return View("StepThree", model);

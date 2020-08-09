@@ -18,19 +18,23 @@ namespace InstaEthereum.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var allUsers = _context.AspNetUsers.ToList();            
-            var userIds = new List<int>();
-            var users = new List<AspNetUser>();
-
-            foreach (var item in allUsers)
-            {
-                var userId = _context.AspNetUserRoles.Where(r => r.UserId == item.Id && r.RoleId == 2).Select(u => u.UserId).ToList();
-                userIds.AddRange(userId);
-            }
-
-            users = _context.AspNetUsers.Where(u => userIds.Contains(u.Id)).ToList();
+            var users = _context.Users
+                        .Where(r => r.Roles.Any(u => u.RoleId == "585e06f7-bbdd-4f85-b6ae-d0d0f50f21b4"))
+                        .ToList();
 
             return View(users);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(string id)
+        {
+            var adminInDb = _context.Users.Find(id);
+
+            _context.Users.Remove(adminInDb);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Users");
         }
     }
 }
