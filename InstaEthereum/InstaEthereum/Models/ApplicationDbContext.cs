@@ -18,5 +18,7 @@ namespace InstaEthereum.Models
             DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
             return new ApplicationDbContext();
         }
+
+        public DbSet<SetPrice> SetPrices { get; set; }
     }
 }

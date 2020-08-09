@@ -142,8 +142,19 @@ textarea {
 
 .table{
     background: #fff;
-    text-align:center;
+    text-align:left;
 }
 .table thead tr th {    
-    text-align: center;
+    /*text-align: left;*/
+}
+
+.set-price-div {
+    background: #FFF
+}
+.set-price-div .row {
+    padding:0;
+    margin: 0;
+}
+.set-price-div .br-bottom{
+    border-bottom:1px solid #ddd;
 }

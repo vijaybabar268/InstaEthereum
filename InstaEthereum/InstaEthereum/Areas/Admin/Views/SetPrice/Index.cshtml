@@ -1,0 +1,129 @@
+﻿@model InstaEthereum.Areas.Admin.ViewModels.DisplaySetPriceViewModel
+
+@{
+    ViewBag.Title = "Set Price";
+    int srNo = 1;
+}
+
+@Html.Partial("_TopHeader")
+
+<div class="main-content">
+    <div class="row" style="margin-bottom:20px;">
+        <div class="col-md-6">
+            <div class="my-card">
+                <div class="card-body">
+                    <h3 class="card-title text-center">@Model.BinanceETHPrice INR</h3>
+                    <div class="divider"></div>
+                    <h5 class="card-text text-center">Binance ETH Price</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="my-card">
+                <div class="card-body">
+                    <h3 class="card-title text-center">@Model.WazirXETHPrice INR</h3>
+                    <div class="divider"></div>
+                    <h5 class="card-text text-center">WazirX ETH Price</h5>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-3">
+                <div class="my-card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">9:00 AM</h3>
+                        <div class="divider"></div>
+                        <h5 class="card-text text-center">Opening Time</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="my-card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">10:00 PM</h3>
+                        <div class="divider"></div>
+                        <h5 class="card-text text-center">Closing Time</h5>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</div>
+
+<div class="set-price-div">
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Select Ethereum Price</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>Sr</th>
+                        <th>Name</th>
+                        <th>Original Price</th>
+                        <th>Add + %</th>
+                        <th>Final Price</th> 
+                        <th>Status</th>
+                        <th class="text-center" width="16%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model.SetPrices)
+                        {
+                            using (@Html.BeginForm("SetPrice", "SetPrice", FormMethod.Post, new { style = "display: inline;", onClick = "return confirm('Are you sure you want tp perform this action?')" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("Id", item.Id)
+
+                                <tr>
+                                    <td>@srNo</td>
+                                    <td>@item.Source</td>
+                                    <td>@item.OriginalPrice INR</td>
+                                    <td>
+                                        @Html.TextBox("AddPercent", @item.AddPercent, new { min = "1", max = "100", size = "2" })
+                                    </td>
+                                    <td>@item.Price INR</td>
+                                    <td>
+                                        @{
+                                            if (item.Status == true)
+                                            {
+                                                <img src="~/Areas/Admin/Content/img/icons/selected.png" height="22" />
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Areas/Admin/Content/img/icons/notselected.png" height="22" />
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-sm">Set Price</button>                                    
+                                        @Html.ActionLink("Set Default", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class= "btn btn-primary btn-sm" })
+                                    </td>
+                                </tr>
+                                srNo++;
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="alertMessage" value="@ViewBag.Message" />
+
+@section Scripts
+{
+    @{
+        if (!string.IsNullOrWhiteSpace(ViewBag.Message))
+        {
+            <script>
+                //$(function () {
+                //    alert($("#alertMessage").val());
+                //})
+            </script>
+        }
+    }
+}
