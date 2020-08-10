@@ -54,35 +54,34 @@ namespace InstaEthereum.Controllers
 
         public ActionResult StepStart()
         {
+            Session.Remove("UserEmail");
+            Session.Remove("EthereumQty");
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> StepStartProcess(UserLoginViewModel model)
+        public ActionResult StepStartProcess(UserLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("StepStart", model);
             }
 
-            var user = _context.Users
-                        .FirstOrDefault(r => r.Email.ToLower().Trim() == model.Email.ToLower().Trim() && r.Roles.Any(u => u.RoleId == "585e06f7-bbdd-4f85-b6ae-d0d0f50f21b4"));
+            var user = _context.AspNetUsers.FirstOrDefault(u => u.Email.ToLower().Trim() == model.Email.ToLower().Trim() && u.RoleId == 2);
 
             if (user == null)
             {
                 return RedirectToAction("StepThree", new { Email = model.Email });
             }
-
-            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
+                        
+            Session["UserEmail"] = user.Email;
             return RedirectToAction("StepOne");
         }
 
         public ActionResult StepOne()
-        {
-            Session.Remove("EthereumQty");
-            
+        {                        
             return View();
         }
 
@@ -105,29 +104,25 @@ namespace InstaEthereum.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> StepTwoProcess(string wallet_address)
+        public ActionResult StepTwoProcess(string wallet_address)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    ModelState.AddModelError("", "Something went wrong.");
-            //    return View("StepTwo");
-            //}
-            
-            //var userId = User.Identity.GetUserId();
-            //var userInDb = _context.Users.SingleOrDefault(x => x.Id == userId);
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Something went wrong.");
+                return View("StepTwo");
+            }
 
-            //if (userInDb == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            var email = Session["UserEmail"].ToString().ToLower().Trim();
+            var userInDb = _context.AspNetUsers.FirstOrDefault(u => u.RoleId == 2 && u.Email.ToLower().Trim() == email);
 
-            //userInDb.WalletAddress = wallet_address;
-            
-            //var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            //var manager = new UserManager<ApplicationUser>(store);
-            //await manager.UpdateAsync(userInDb);
-            //_context.SaveChanges();
-                        
+            if (userInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            userInDb.WalletAddress = wallet_address;
+            _context.SaveChanges();        
+
             return RedirectToAction("StepFour");
         }
 
@@ -144,27 +139,23 @@ namespace InstaEthereum.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> StepThreeProcess(NewRegisterViewModel model)
+        public ActionResult StepThreeProcess(NewRegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new AspNetUser
                 {
                     UserName = model.UserName,
                     PhoneNumber = model.PhoneNumber,
-                    Email = model.Email
+                    Email = model.Email,
+                    RoleId = 2
                 };
 
-                var result = await UserManager.CreateAsync(user, "Pass@12345");
+                _context.AspNetUsers.Add(user);
+                _context.SaveChanges();
 
-                if (result.Succeeded)
-                {                    
-                    await UserManager.AddToRoleAsync(user.Id, "User");
-
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    return RedirectToAction("StepOne");                    
-                }
+                Session["UserEmail"] = user.Email;
+                return RedirectToAction("StepOne");
             }
 
             return View("StepThree", model);

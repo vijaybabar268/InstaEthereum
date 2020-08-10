@@ -94,6 +94,8 @@ namespace InstaEthereum.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        public int RoleId { get; set; }
     }
 
     public class ResetPasswordViewModel

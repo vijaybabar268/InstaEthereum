@@ -75,33 +75,7 @@ namespace InstaEthereum.Controllers
             {
                 return View(model);
             }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-
-            //var user = await UserManager.FindByEmailAsync(model.Email);
-
-            //var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
-
-            //switch (result)
-            //{
-            //    case SignInStatus.Success: 
-            //        {                                         
-            //            var baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority;
-            //            var url = baseUrl + "/Admin/Dashboard/Index";
-            //            return Redirect(url);
-            //        }                    
-            //    case SignInStatus.LockedOut:
-            //        return View("Lockout");
-            //    case SignInStatus.RequiresVerification:
-            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-            //    case SignInStatus.Failure:
-            //    default:
-            //        ModelState.AddModelError("", "Invalid login attempt.");
-            //        return View(model);
-            //}
-
+                        
             var admin = _context.AspNetUsers.FirstOrDefault(u => u.Email.ToLower().Trim() == model.Email.ToLower().Trim() && u.Password.ToLower().Trim() == model.Password.ToLower().Trim());
 
             if (admin == null)
@@ -199,32 +173,7 @@ namespace InstaEthereum.Controllers
                 }
             }
 
-            return View(model);
-
-            /*if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email
-                };
-
-                var result = await UserManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    //Temp Code
-                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    await roleManager.CreateAsync(new IdentityRole("User"));
-                    await UserManager.AddToRoleAsync(user.Id, "User");
-                                        
-                    ModelState.AddModelError("", "Successfully Created.");
-                    return View(model);
-                }
-                AddErrors(result);
-            }                        
-            return View(model);*/
+            return View(model);                        
         }
 
         //

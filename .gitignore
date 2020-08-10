@@ -1,0 +1,18 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/InstaEthereum/packages
+/InstaEthereum/InstaEthereum/bin
+/InstaEthereum/InstaEthereum/obj/Debug/InstaEthereum.csproj.CopyComplete
+/InstaEthereum/InstaEthereum/obj/Debug/InstaEthereum.Migrations.InitialModel.resources
+/InstaEthereum/InstaEthereum/obj/Debug/InstaEthereum.csproj.FileListAbsolute.txt
+/InstaEthereum/InstaEthereum/Content/img
+/InstaEthereum/InstaEthereum/Assets/img
+/InstaEthereum/InstaEthereum/obj/Debug/__TestProfilesForFilePreview__
+/InstaEthereum/InstaEthereum/obj/Debug/InstaEthereum.Migrations.InitialModelCreated.resources
+/InstaEthereum/InstaEthereum/App_Data
+/InstaEthereum/InstaEthereum/obj/Release
+/InstaEthereum/InstaEthereum/obj/Debug/InstaEthereum.Migrations.SetNullableWalletAddress.resources
+/InstaEthereum/InstaEthereum/Areas/Admin/Content/img/icons
