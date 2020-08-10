@@ -18,9 +18,11 @@ namespace InstaEthereum.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var users = _context.Users
-                        .Where(r => r.Roles.Any(u => u.RoleId == "585e06f7-bbdd-4f85-b6ae-d0d0f50f21b4"))
-                        .ToList();
+            //var users = _context.Users
+            //            .Where(r => r.Roles.Any(u => u.RoleId == "585e06f7-bbdd-4f85-b6ae-d0d0f50f21b4"))
+            //            .ToList();
+
+            var users = _context.AspNetUsers.Where(u => u.RoleId == 2).ToList();
 
             return View(users);
         }

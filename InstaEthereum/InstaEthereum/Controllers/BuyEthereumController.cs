@@ -107,26 +107,26 @@ namespace InstaEthereum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> StepTwoProcess(string wallet_address)
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Something went wrong.");
-                return View("StepTwo");
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    ModelState.AddModelError("", "Something went wrong.");
+            //    return View("StepTwo");
+            //}
             
-            var userId = User.Identity.GetUserId();
-            var userInDb = _context.Users.SingleOrDefault(x => x.Id == userId);
+            //var userId = User.Identity.GetUserId();
+            //var userInDb = _context.Users.SingleOrDefault(x => x.Id == userId);
 
-            if (userInDb == null)
-            {
-                return HttpNotFound();
-            }
+            //if (userInDb == null)
+            //{
+            //    return HttpNotFound();
+            //}
 
-            userInDb.WalletAddress = wallet_address;
+            //userInDb.WalletAddress = wallet_address;
             
-            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            var manager = new UserManager<ApplicationUser>(store);
-            await manager.UpdateAsync(userInDb);
-            _context.SaveChanges();
+            //var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            //var manager = new UserManager<ApplicationUser>(store);
+            //await manager.UpdateAsync(userInDb);
+            //_context.SaveChanges();
                         
             return RedirectToAction("StepFour");
         }

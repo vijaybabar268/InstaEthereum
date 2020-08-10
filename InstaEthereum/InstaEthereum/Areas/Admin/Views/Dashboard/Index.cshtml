@@ -9,7 +9,18 @@
         <div class="col-md-3">
             <div class="my-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">@ViewBag.TotalUsers</h3>
+                    <h3 class="card-title text-center">
+                        @{ 
+                            if ((int)ViewBag.TotalUsers == 0)
+                            {
+                                <span>NA</span>
+                            }
+                            else
+                            {
+                                <span>@ViewBag.TotalUsers</span>
+                            }
+                        }                        
+                    </h3>
                     <div class="divider"></div>
                     <h5 class="card-text text-center">Total Users</h5>
                 </div>

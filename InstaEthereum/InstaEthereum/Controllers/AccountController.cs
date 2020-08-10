@@ -69,7 +69,7 @@ namespace InstaEthereum.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -80,34 +80,42 @@ namespace InstaEthereum.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
-            var user = UserManager.FindByEmail(model.Email);
+            //var user = await UserManager.FindByEmailAsync(model.Email);
 
-            if (user == null)
+            //var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+
+            //switch (result)
+            //{
+            //    case SignInStatus.Success: 
+            //        {                                         
+            //            var baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority;
+            //            var url = baseUrl + "/Admin/Dashboard/Index";
+            //            return Redirect(url);
+            //        }                    
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        ModelState.AddModelError("", "Invalid login attempt.");
+            //        return View(model);
+            //}
+
+            var admin = _context.AspNetUsers.FirstOrDefault(u => u.Email.ToLower().Trim() == model.Email.ToLower().Trim() && u.Password.ToLower().Trim() == model.Password.ToLower().Trim());
+
+            if (admin == null)
             {
                 ModelState.AddModelError("", "Invalid Credentials, Try Again.");
                 return View(model);
             }
 
-            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            Session["AdminId"] = admin.Id;
+            Session["AdminEmail"] = admin.Email;
 
-            switch (result)
-            {
-                case SignInStatus.Success: 
-                    {
-                        // return RedirectToLocal(returnUrl);                   
-                        var baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority;
-                        var url = baseUrl + "/Admin/Dashboard/Index";
-                        return Redirect(url);
-                    }                    
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+            var baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority;
+            var url = baseUrl + "/Admin/Dashboard/Index";
+            return Redirect(url);
         }
 
         //
@@ -166,37 +174,34 @@ namespace InstaEthereum.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        var user = new AspNetUser
-            //        {                        
-            //            Email = model.Email,
-            //            Password = model.Password
-            //        };
-
-            //        _context.AspNetUsers.Add(user);
-            //        _context.SaveChanges();
-
-            //        var userRoleAssigned = new AspNetUserRole() { UserId = user.Id, RoleId = 1 };
-
-            //        _context.AspNetUserRoles.Add(userRoleAssigned);
-            //        _context.SaveChanges();
-
-            //        return RedirectToAction("Index", "Dashboard");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine(ex.Message);
-            //    }
-            //}                                              
-
-            //return View(model);
-
             if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = new AspNetUser
+                    {
+                        Email = model.Email,
+                        Password = model.Password,
+                        RoleId = 1
+                    };
+
+                    _context.AspNetUsers.Add(user);
+                    _context.SaveChanges();
+                                        
+                    ModelState.AddModelError("", "Successfully Created.");
+                    return View(model);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return View(model);
+
+            /*if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
                 {
@@ -213,25 +218,13 @@ namespace InstaEthereum.Controllers
                     var roleManager = new RoleManager<IdentityRole>(roleStore);
                     await roleManager.CreateAsync(new IdentityRole("User"));
                     await UserManager.AddToRoleAsync(user.Id, "User");
-
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    //return RedirectToAction("Index", "Home");
-
+                                        
                     ModelState.AddModelError("", "Successfully Created.");
                     return View(model);
                 }
                 AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            }                        
+            return View(model);*/
         }
 
         //
