@@ -1,4 +1,6 @@
-﻿@{
+﻿@model InstaEthereum.ViewModels.StepOneViewModel
+
+@{
     ViewBag.Title = "2";
     ViewBag.ImageStepCount = "2.png";
 }
@@ -10,38 +12,27 @@
         
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
-                <h5 id="card-header">Enter Ethereum Quantity To Buy</h5>                
+                <h5 id="card-header">Enter Ethereum Quantity To Buy</h5>
             </div>
         </div>
-        <div class="divider"></div>        
+        <div class="divider"></div>
         <div class="row">
-                <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
-                    <input type="text" name="ethereum_qty" class="form-control my-form-control" placeholder="Enter Ethereum Quantity" />
-                    <p id="input-info">Minimum purchase of 0.55 and maximum 1.55 ETH</p>
-                </div>
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
+                @Html.TextBoxFor(m => m.EthereumQty, new { @class = "form-control my-form-control", placeholder = "Enter Ethereum Quantity" })
+                <p id="input-info">Minimum purchase of @Model.MinEthBuy ETH and maximum @Model.MaxEthBuy ETH</p>
+                @Html.ValidationMessageFor(m => m.EthereumQty, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             </div>
-            <div class="row">
-                <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 55px;">
-                    <h5 id="price-text">1 Ethereum &nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp;₹ 20,000</h5>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 55px;">
+                <h5 id="price-text">1 Ethereum &nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; @InstaEthereum.Models.Helper.parseValueIntoCurrency(Model.SetPrice)</h5>
             </div>
+        </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center">
                 <button type="submit" class="btn btn-primary" style="margin-top: 60px; width: 200px; padding: 15px 0;">NEXT</button>
-                @*@Html.ActionLink("NEXT", "StepTwo", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 60px;width: 200px;padding: 15px 0;" })*@
             </div>
-        </div>        
+        </div>
     }
 </div>
-
-@*<div class="row">
-        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center">
-            @Html.ActionLink("Search Transaction", "SearchTransaction", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 10px;width: 100%;padding: 18px 0; " })
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center">
-            @Html.ActionLink("Support", "Support", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 20px;margin-bottom:80px;width: 100%;padding: 18px 0; " })
-        </div>
-    </div>*@

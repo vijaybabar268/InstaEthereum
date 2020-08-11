@@ -1,0 +1,70 @@
+﻿@model InstaEthereum.Areas.Admin.ViewModels.StockViewModel
+
+@{
+    ViewBag.Title = "Stocks";
+    int srNo = 1;
+}
+
+@Html.Partial("_TopHeader")
+
+<div class="main-content">
+    <div class="row" style="margin-bottom:20px;">
+    </div>
+</div>
+
+<div class="set-price-div">
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Set Minimum and Maximum purchase</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("SetRange", "Stocks", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.Id)
+                @Html.AntiForgeryToken()
+
+                <table class="table table-bordered  table-responsive ">
+                    <thead>
+                        <tr>
+                            <th>Minimum Purchase ETH</th>
+                            <th>Maximum Purchase ETH</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.TextBoxFor(m => m.EthMinPurchaseLimit, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.EthMaxPurchaseLimit, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                <input type="submit" class="btn btn-primary" value="Set Range" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="alertMessage" value="@ViewBag.Message" />
+
+@section Scripts
+{
+    @{
+        if (!string.IsNullOrWhiteSpace(ViewBag.Message))
+        {
+            <script>
+                $(function () {
+                    alert($("#alertMessage").val());
+                })
+            </script>
+        }
+    }
+}

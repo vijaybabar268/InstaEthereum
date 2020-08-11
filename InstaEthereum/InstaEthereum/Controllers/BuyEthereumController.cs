@@ -1,4 +1,5 @@
 ﻿using InstaEthereum.Models;
+using InstaEthereum.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -14,42 +15,10 @@ namespace InstaEthereum.Controllers
     public class BuyEthereumController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
 
         public BuyEthereumController()
         {
             _context = new ApplicationDbContext();
-        }
-
-        public BuyEthereumController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
         }
 
         public ActionResult StepStart()
@@ -57,81 +26,129 @@ namespace InstaEthereum.Controllers
             Session.Remove("UserEmail");
             Session.Remove("EthereumQty");
 
-            return View();
+            var viewModel = new PageStartViewModel()
+            {
+                MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
+                MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max,
+                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price
+            };
+                        
+            return View("StepStart", viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StepStartProcess(UserLoginViewModel model)
+        public ActionResult StepStartProcess(PageStartViewModel model)
         {
+            var viewModel = new PageStartViewModel()
+            {
+                MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
+                MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max,
+                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price
+            };
+
             if (!ModelState.IsValid)
             {
-                return View("StepStart", model);
+                return View("StepStart", viewModel);
             }
 
-            var user = _context.AspNetUsers.FirstOrDefault(u => u.Email.ToLower().Trim() == model.Email.ToLower().Trim() && u.RoleId == 2);
+            Session["UserEmail"] = model.Email;
+
+            var user = _context.AspNetUsers.FirstOrDefault(u => u.Email.ToLower().Trim() == model.Email.ToLower().Trim() && u.RoleId == 2 && u.RoleId != 1);
 
             if (user == null)
             {
-                return RedirectToAction("StepThree", new { Email = model.Email });
+                return RedirectToAction("StepThree");
             }
-                        
-            Session["UserEmail"] = user.Email;
+            
             return RedirectToAction("StepOne");
         }
 
         public ActionResult StepOne()
-        {                        
-            return View();
+        {
+            var viewModel = new StepOneViewModel()
+            {
+                SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                MinEthBuy = 1,
+                MaxEthBuy = 20
+            };
+                        
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StepOneProcess(string ethereum_qty)
+        public ActionResult StepOneProcess(StepOneViewModel model)
         {
-            if (!string.IsNullOrWhiteSpace(ethereum_qty))
+            var viewModel = new StepOneViewModel()
             {
-                Session["EthereumQty"] = ethereum_qty;
+                SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                MinEthBuy = 1,
+                MaxEthBuy = 20
+            };
+
+            if (!ModelState.IsValid)
+                return View("StepOne", viewModel);                
+                        
+            if (model.EthereumQty < 1 || model.EthereumQty > 21)
+            {
+                ModelState.AddModelError("", "Minimum purchase of 1 ETH and maximum 20 ETH");
+                return View("StepOne", viewModel);
             }
 
+            Session["EthereumQty"] = model.EthereumQty;
+                        
             return RedirectToAction("StepTwo");
         }
 
         public ActionResult StepTwo()
         {
-            return View();
+            var viewModel = new StepTwoViewModel()
+            {
+                SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                MinEthBuy = 1,
+                MaxEthBuy = 20
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StepTwoProcess(string wallet_address)
+        public ActionResult StepTwoProcess(StepTwoViewModel model)
         {
-            if (!ModelState.IsValid)
+            var viewModel = new StepTwoViewModel()
             {
-                ModelState.AddModelError("", "Something went wrong.");
-                return View("StepTwo");
-            }
+                SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                MinEthBuy = 1,
+                MaxEthBuy = 20                
+            };
+
+            if (!ModelState.IsValid)
+                return View("StepTwo", viewModel);
 
             var email = Session["UserEmail"].ToString().ToLower().Trim();
             var userInDb = _context.AspNetUsers.FirstOrDefault(u => u.RoleId == 2 && u.Email.ToLower().Trim() == email);
 
             if (userInDb == null)
             {
-                return HttpNotFound();
+                ModelState.AddModelError("", "Something went wrong.");
+                return View("StepTwo", viewModel);
             }
 
-            userInDb.WalletAddress = wallet_address;
+            userInDb.WalletAddress = model.WalletAddress;
+
             _context.SaveChanges();        
 
             return RedirectToAction("StepFour");
         }
 
         #region User Registration
-        public ActionResult StepThree(string email)
+        public ActionResult StepThree()
         {
             var model = new NewRegisterViewModel
             {
-                Email = email
+                Email = Session["UserEmail"].ToString()
             };
 
             return View("StepThree", model);

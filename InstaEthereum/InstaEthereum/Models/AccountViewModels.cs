@@ -88,13 +88,15 @@ namespace InstaEthereum.Models
         public string UserName { get; set; }
 
         [Required]
+        [Phone]
         [Display(Name = "Mobile")]
         public string PhoneNumber { get; set; }
 
         [Required]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-
+                
         public int RoleId { get; set; }
     }
 

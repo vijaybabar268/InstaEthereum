@@ -72,9 +72,9 @@ body {
 #input-info {
     text-align: center;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     padding: 4px 0;
-    color: #b2b2b2;
+    color: brown;
 }
 
 #price-text {
