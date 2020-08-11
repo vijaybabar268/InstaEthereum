@@ -232,6 +232,7 @@
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\AspNetRole.cs" />
     <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\SetPrice.cs" />

@@ -12,7 +12,9 @@
         <div class="col-md-6">
             <div class="my-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">@Model.BinanceETHPrice INR</h3>
+                    <h3 class="card-title text-center">
+                        @InstaEthereum.Models.Helper.parseValueIntoCurrency(Model.BinanceETHPrice)
+                    </h3>
                     <div class="divider"></div>
                     <h5 class="card-text text-center">Binance ETH Price</h5>
                 </div>
@@ -21,7 +23,9 @@
         <div class="col-md-6">
             <div class="my-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">@Model.WazirXETHPrice INR</h3>
+                    <h3 class="card-title text-center">
+                        @InstaEthereum.Models.Helper.parseValueIntoCurrency(Model.WazirXETHPrice)
+                    </h3>
                     <div class="divider"></div>
                     <h5 class="card-text text-center">WazirX ETH Price</h5>
                 </div>
@@ -65,7 +69,7 @@
                         <th>Add + %</th>
                         <th>Final Price</th> 
                         <th>Status</th>
-                        <th class="text-center" width="16%">Action</th>
+                        <th class="text-center" width="24.5%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,11 +84,15 @@
                                 <tr>
                                     <td>@srNo</td>
                                     <td>@item.Source</td>
-                                    <td>@item.OriginalPrice INR</td>
+                                    <td>
+                                        @InstaEthereum.Models.Helper.parseValueIntoCurrency(item.OriginalPrice)
+                                    </td>
                                     <td>
                                         @Html.TextBox("AddPercent", @item.AddPercent, new { min = "1", max = "100", size = "2" })
                                     </td>
-                                    <td>@item.Price INR</td>
+                                    <td>
+                                        @InstaEthereum.Models.Helper.parseValueIntoCurrency(item.Price)
+                                    </td>
                                     <td>
                                         @{
                                             if (item.Status == true)
@@ -98,8 +106,15 @@
                                         }
                                     </td>
                                     <td>
-                                        <button type="submit" class="btn btn-primary btn-sm">Set Price</button>                                    
-                                        @Html.ActionLink("Set Default", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class= "btn btn-primary btn-sm" })
+                                        <button type="submit" class="btn btn-primary btn-sm">Set Price</button>
+                                        @Html.ActionLink("Set Default", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+
+                                        @{
+                                            if (item.Id == 2) // WazirX ETH Price
+                                            {
+                                                @Html.ActionLink("Fetch Price", "GetPrice", "SetPrice", null, new { @class = "btn btn-primary btn-sm" })
+                                            }
+                                        }
                                     </td>
                                 </tr>
                                 srNo++;

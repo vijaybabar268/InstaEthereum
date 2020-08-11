@@ -19,6 +19,7 @@
                 <div class="form-group">
                     @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
                     <div class="col-md-12">
+                        @*<input type="text" name="Email" value="admin@gmail.com" class = "form-control text-center"/>*@
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control text-center", placeholder = "Enter your email" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>

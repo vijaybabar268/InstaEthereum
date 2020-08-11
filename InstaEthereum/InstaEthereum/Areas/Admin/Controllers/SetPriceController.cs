@@ -1,11 +1,17 @@
 ﻿using InstaEthereum.Areas.Admin.ViewModels;
 using InstaEthereum.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace InstaEthereum.Areas.Admin.Controllers
 {
@@ -78,6 +84,26 @@ namespace InstaEthereum.Areas.Admin.Controllers
             _context.SaveChanges();
 
             TempData["Message"] = "Successfully Updated.";
+            return RedirectToAction("Index");
+        }
+                
+        public ActionResult GetPrice()
+        {            
+            // WazirX ETH Price
+            using (var webClient = new WebClient())
+            {
+                string rawJson = webClient.DownloadString("https://api.wazirx.com/api/v2/tickers");                
+                var jsonData = JObject.Parse(rawJson);                
+                var wazirxETHPrice = decimal.Parse(jsonData.Value<JObject>("ethinr").Properties()
+                                    .FirstOrDefault(x => x.Name == "buy").Value.ToString());
+
+                var priceInDb = _context.SetPrices.Find(2);
+                priceInDb.OriginalPrice = wazirxETHPrice;
+                
+                _context.SaveChanges();
+            }
+
+            TempData["Message"] = "Wazirx ETH Price Set.";
             return RedirectToAction("Index");
         }
 
