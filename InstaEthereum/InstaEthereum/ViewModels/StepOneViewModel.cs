@@ -12,10 +12,10 @@ namespace InstaEthereum.ViewModels
 
         [Required]
         [Display(Name = "Ethereum Qty")]
-        public int? EthereumQty { get; set; }
+        public decimal EthereumQty { get; set; }
 
-        public byte MinEthBuy { get; set; }
+        public decimal MinEthBuy { get; set; }
 
-        public byte MaxEthBuy { get; set; }                
+        public decimal MaxEthBuy { get; set; }                
     }
 }

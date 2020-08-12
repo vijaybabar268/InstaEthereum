@@ -144,7 +144,11 @@ textarea {
     background: #fff;
     text-align:left;
 }
-.table thead tr th {    
+.table tbody tr td{
+    color: #9196b3;
+}
+
+.table thead tr th {
     /*text-align: left;*/
 }
 

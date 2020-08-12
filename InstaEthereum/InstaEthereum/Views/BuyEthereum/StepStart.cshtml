@@ -18,8 +18,14 @@
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control my-form-control", placeholder = "Enter your email" })
+                <p id="input-info">Minimum purchase of @Model.MinEthBuy ETH and maximum @Model.MaxEthBuy ETH</p>
                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 55px;">
+                <h5 id="price-text">1 Ethereum &nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; @InstaEthereum.Models.Helper.parseValueIntoCurrency(Model.EthPrice)</h5>
             </div>
         </div>
         <div class="row">

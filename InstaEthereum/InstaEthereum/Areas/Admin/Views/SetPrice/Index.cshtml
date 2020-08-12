@@ -69,7 +69,7 @@
                         <th>Add + %</th>
                         <th>Final Price</th> 
                         <th>Status</th>
-                        <th class="text-center" width="24.5%">Action</th>
+                        <th class="text-center" width="25%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,14 +105,14 @@
                                             }
                                         }
                                     </td>
-                                    <td>
-                                        <button type="submit" class="btn btn-primary btn-sm">Set Price</button>
-                                        @Html.ActionLink("Set Default", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                                    <td class="text-center">
+                                        <button type="submit" class="btn btn-danger btn-sm">Set Price</button>
+                                        @Html.ActionLink("Set Default", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn btn-danger btn-sm js-set-price" })
 
                                         @{
                                             if (item.Id == 2) // WazirX ETH Price
                                             {
-                                                @Html.ActionLink("Fetch Price", "GetPrice", "SetPrice", null, new { @class = "btn btn-primary btn-sm" })
+                                                @Html.ActionLink("Fetch Price", "GetPrice", "SetPrice", null, new { @class = "btn btn-danger btn-sm" })
                                             }
                                         }
                                     </td>
@@ -137,6 +137,11 @@
             <script>
                 $(function () {
                     alert($("#alertMessage").val());
+
+                    $("#AddPercent").on('blur', function () {
+                        $(".js-set-price").trigger("click");
+                    })
+
                 })
             </script>
         }

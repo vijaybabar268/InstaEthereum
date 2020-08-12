@@ -1,5 +1,8 @@
-﻿@{
+﻿@model InstaEthereum.Areas.Admin.ViewModels.DisplayOrderViewModel
+
+@{
     ViewBag.Title = "Orders";
+    int srNo = 1;
 }
 
 @Html.Partial("_TopHeader")
@@ -7,4 +10,56 @@
 
 <div class="main-content">
 
+    @{
+        if (!@Model.Orders.Any())
+        {
+            <p class="text-center">We don't have any order yet.</p>
+        }
+        else
+        {
+            <table class="table table-bordered table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Sr</th>
+                        <th>Transaction Id</th>
+                        <th>Time Stamp</th>
+                        <th>User</th>
+                        <th>Ethereum Qty</th>
+                        <th>Price</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model.Orders)
+                        {
+                            <tr>
+                                <td>@srNo</td>
+                                <td>@item.TransactionId</td>
+                                <td>@string.Format("{0:dd/MM/yyyy h:mm:ss tt}", item.OrderDateTime)</td>
+                                <td>
+                                    @InstaEthereum.Models.Helper.GetUserEmail(item.UserId).Email
+                                </td>
+                                <td>@item.EthereumQty</td>
+                                <td>@InstaEthereum.Models.Helper.parseValueIntoCurrency(@item.PurchasePrice)</td>
+                                <td class="text-center">
+                                    @{
+                                        if (item.Status == 0)
+                                        {
+                                            <span class="badge badge-pill bg-warning" style="background-color:#d9534f">Pending</span>
+                                        }
+                                        if (item.Status == 1)
+                                        {
+                                            <span class="badge badge-pill bg-warning" style="background-color:green">Completed</span>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                            srNo++;
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+    }
 </div>

@@ -25,12 +25,13 @@ namespace InstaEthereum.Controllers
         {
             Session.Remove("UserEmail");
             Session.Remove("EthereumQty");
+            Session.Remove("WalletAddress");
 
             var viewModel = new PageStartViewModel()
             {
                 MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
                 MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max,
-                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price
+                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,                
             };
                         
             return View("StepStart", viewModel);
@@ -69,8 +70,8 @@ namespace InstaEthereum.Controllers
             var viewModel = new StepOneViewModel()
             {
                 SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
-                MinEthBuy = 1,
-                MaxEthBuy = 20
+                MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
+                MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
             };
                         
             return View(viewModel);
@@ -83,22 +84,27 @@ namespace InstaEthereum.Controllers
             var viewModel = new StepOneViewModel()
             {
                 SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
-                MinEthBuy = 1,
-                MaxEthBuy = 20
+                MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
+                MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
             };
 
             if (!ModelState.IsValid)
-                return View("StepOne", viewModel);                
-                        
-            if (model.EthereumQty < 1 || model.EthereumQty > 21)
+                return View("StepOne", viewModel);
+
+            if (model.EthereumQty >= viewModel.MinEthBuy && model.EthereumQty <= viewModel.MaxEthBuy)
             {
-                ModelState.AddModelError("", "Minimum purchase of 1 ETH and maximum 20 ETH");
+                Session["EthereumQty"] = model.EthereumQty;
+
+                return RedirectToAction("StepTwo");
+            }
+            else
+            {
+                ModelState.AddModelError("", string.Format("Minimum purchase of {0} ETH and maximum {1} ETH", viewModel.MinEthBuy, viewModel.MaxEthBuy));
+
                 return View("StepOne", viewModel);
             }
 
-            Session["EthereumQty"] = model.EthereumQty;
-                        
-            return RedirectToAction("StepTwo");
+           
         }
 
         public ActionResult StepTwo()
@@ -106,8 +112,8 @@ namespace InstaEthereum.Controllers
             var viewModel = new StepTwoViewModel()
             {
                 SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
-                MinEthBuy = 1,
-                MaxEthBuy = 20
+                MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
+                MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
             };
 
             return View(viewModel);
@@ -120,8 +126,8 @@ namespace InstaEthereum.Controllers
             var viewModel = new StepTwoViewModel()
             {
                 SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
-                MinEthBuy = 1,
-                MaxEthBuy = 20                
+                MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
+                MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
             };
 
             if (!ModelState.IsValid)
@@ -137,6 +143,7 @@ namespace InstaEthereum.Controllers
             }
 
             userInDb.WalletAddress = model.WalletAddress;
+            Session["WalletAddress"] = model.WalletAddress;
 
             _context.SaveChanges();        
 
@@ -181,7 +188,51 @@ namespace InstaEthereum.Controllers
 
         public ActionResult StepFour()
         {
-            return View();
+            var payableAmount = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price * (decimal)Session["EthereumQty"];
+
+            var viewModel = new OrderViewModel()
+            {
+                OneEthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                EthereumQty = (decimal)Session["EthereumQty"],
+                WalletAddress = (string)Session["WalletAddress"],
+                PayableAmount = payableAmount
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StepFourProcess(OrderViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("StepFour", model);
+            }
+
+            var email = Session["UserEmail"].ToString().ToLower().Trim();
+            var userInDb = _context.AspNetUsers.FirstOrDefault(u => u.RoleId == 2 && u.Email.ToLower().Trim() == email);
+
+            if (userInDb == null)
+            {
+                ModelState.AddModelError("", "Something went wrong.");
+                return View("StepFour", model);
+            }
+
+            var order = new Order
+            {
+                EthereumQty = model.EthereumQty,
+                OrderDateTime = DateTime.Now,
+                PurchasePrice = model.PayableAmount,
+                Status = 0,
+                TransactionId = "",
+                UserId = userInDb.Id,
+            };
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            return RedirectToAction("StepFive");
         }
 
         public ActionResult StepFive()

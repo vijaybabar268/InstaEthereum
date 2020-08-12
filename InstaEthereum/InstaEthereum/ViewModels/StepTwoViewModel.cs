@@ -10,9 +10,9 @@ namespace InstaEthereum.ViewModels
     {
         public decimal SetPrice { get; set; }
                 
-        public byte MinEthBuy { get; set; }
+        public decimal MinEthBuy { get; set; }
 
-        public byte MaxEthBuy { get; set; }
+        public decimal MaxEthBuy { get; set; }
 
         [Required]
         [StringLength(250)]

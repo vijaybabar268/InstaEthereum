@@ -221,6 +221,7 @@
     <Compile Include="Areas\Admin\Controllers\SetPriceController.cs" />
     <Compile Include="Areas\Admin\Controllers\StocksController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\DisplayOrderViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\DisplaySetPriceViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\StockViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -237,11 +238,13 @@
     <Compile Include="Models\EthPurchaseRange.cs" />
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\SetPrice.cs" />
     <Compile Include="Models\UserLoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PageStartViewModel.cs" />
     <Compile Include="ViewModels\StepOneViewModel.cs" />
     <Compile Include="ViewModels\StepTwoViewModel.cs" />
@@ -263,6 +266,10 @@
     <Content Include="Assets\img\4.png" />
     <Content Include="Assets\img\5.png" />
     <Content Include="Assets\img\failed.png" />
+    <Content Include="Assets\img\logo.jpeg" />
+    <Content Include="Assets\img\logo.png" />
+    <Content Include="Assets\img\logo.svg" />
+    <Content Include="Assets\img\logo2.svg" />
     <Content Include="Assets\img\Process_Delivery.png" />
     <Content Include="Assets\img\success.png" />
     <Content Include="favicon.ico" />

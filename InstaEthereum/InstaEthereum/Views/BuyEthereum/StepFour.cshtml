@@ -1,51 +1,64 @@
-﻿@{
+﻿@model InstaEthereum.ViewModels.OrderViewModel
+
+@{
     ViewBag.Title = "4";
     ViewBag.ImageStepCount = "4.png";
 }
 
-<div class="content-div page4">
-    <div class="row">
-        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
-            <h5 id="card-header">Confirm</h5>
-        </div>
+    <div class="content-div page4">
+        @using (Html.BeginForm("StepFourProcess", "BuyEthereum", FormMethod.Post, new { onSubmit = "return confirm('Are you sure you want to perform thease action?')" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(m => m.EthereumQty)
+            @Html.HiddenFor(m => m.WalletAddress)
+            @Html.HiddenFor(m => m.OneEthPrice)
+            @Html.HiddenFor(m => m.PayableAmount)
+
+            <div class="row">
+                <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
+                    <h5 id="card-header">Confirm</h5>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 confirm-div" style="margin-top: 60px;">
+                    <table style="margin: 0 auto;">
+                        <tr>
+                            <td style="width: 200px;">Your Order</td>
+                            <td>=</td>
+                            <td class="td-right-align">@Model.EthereumQty ETH</td>
+                        </tr>
+                        <tr>
+                            <td>Your wallet</td>
+                            <td>=</td>
+                            <td class="td-right-align">@Model.WalletAddress</td>
+                        </tr>
+                        <tr>
+                            <td>1 Ethereum</td>
+                            <td>=</td>
+                            <td class="td-right-align">@InstaEthereum.Models.Helper.parseValueIntoCurrency(Model.OneEthPrice)</td>
+                        </tr>
+                        <tr>
+                            <td>Total Amount Payable</td>
+                            <td>=</td>
+                            <td class="td-right-align">@InstaEthereum.Models.Helper.parseValueIntoCurrency(Model.PayableAmount)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 45px;">
+                    <p id="input-info">Please confirm the above details.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center button-div" style="margin-top: 40px;">
+                    @Html.ActionLink("Cancel", "StepThree", "BuyEthereum", null, new { @class = "btn btn-default btn-cancel", style = "width: 200px;padding: 15px 0;border:1px solid #ccc;", type = "button" })
+
+                    <input type="submit" value="Confirm" class="btn btn-primary" style="width: 200px; padding: 15px 0;" />
+                    @*@Html.ActionLink("Confirm", "StepFive", "BuyEthereum", null, new { @class = "btn btn-primary", style = "width: 200px;padding: 15px 0;" })*@
+                </div>
+            </div>
+        }
     </div>
-    <div class="divider"></div>
-    <div class="row">
-        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 confirm-div" style="margin-top: 60px;">
-            <table style="margin: 0 auto;">
-                <tr>
-                    <td style="width: 200px;">Your Order</td>
-                    <td>=</td>
-                    <td class="td-right-align">1.55 ETH</td>
-                </tr>
-                <tr>
-                    <td>Your wallet</td>
-                    <td>=</td>
-                    <td class="td-right-align">gehjsj78938</td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td>=</td>
-                    <td class="td-right-align">20,200 INR</td>
-                </tr>
-                <tr>
-                    <td>Total Amount Payable</td>
-                    <td>=</td>
-                    <td class="td-right-align">31,500 INR</td>
-                </tr>
-            </table>            
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 45px;">
-            <p id="input-info">Please confirm the above details.</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center button-div" style="margin-top: 40px;">
-            @Html.ActionLink("Cancel", "StepThree", "BuyEthereum", null, new { @class = "btn btn-default btn-cancel", style = "width: 200px;padding: 15px 0;border:1px solid #ccc;" })
-            
-            @Html.ActionLink("Confirm", "StepFive", "BuyEthereum", null, new { @class = "btn btn-primary", style = "width: 200px;padding: 15px 0;" })
-        </div>
-    </div>
-</div>

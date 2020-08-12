@@ -23,5 +23,6 @@ namespace InstaEthereum.Models
         public DbSet<AspNetUser> AspNetUsers { get; set; }
         public DbSet<SetPrice> SetPrices { get; set; }
         public DbSet<EthPurchaseRange> EthPurchaseRange { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
