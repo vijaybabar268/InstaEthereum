@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Ethereum Buy Link";
+    ViewBag.ImageStepCount = "5.png";
+}
+
+<div class="content-div">
+    <div class="row">
+        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
+            <h5 id="card-header">Ethereum Buy Link</h5>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">            
+            <p id="input-info" style="padding: 0 45px;">Will sent payment link on @Session["UserEmail"].ToString(), kindly check your email and proceed for the Payment.</p>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center">
+            @Html.ActionLink("BACK TO HOME", "StepStart", null, new { @class = "btn btn-primary", style = "margin-top: 60px; width: 200px; padding: 15px 0;" } )            
+        </div>
+    </div>
+</div>

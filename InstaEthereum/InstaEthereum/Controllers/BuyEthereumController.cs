@@ -99,7 +99,7 @@ namespace InstaEthereum.Controllers
             }
             else
             {
-                ModelState.AddModelError("", string.Format("Minimum purchase of {0} ETH and maximum {1} ETH", viewModel.MinEthBuy, viewModel.MaxEthBuy));
+                ModelState.AddModelError("EthereumQty", string.Format("Minimum purchase of {0} ETH and maximum {1} ETH", viewModel.MinEthBuy, viewModel.MaxEthBuy));
 
                 return View("StepOne", viewModel);
             }
@@ -188,6 +188,8 @@ namespace InstaEthereum.Controllers
 
         public ActionResult StepFour()
         {
+            var Segments = Request.UrlReferrer.Segments[2];
+
             var payableAmount = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price * (decimal)Session["EthereumQty"];
 
             var viewModel = new OrderViewModel()
@@ -232,7 +234,7 @@ namespace InstaEthereum.Controllers
             _context.Orders.Add(order);
             _context.SaveChanges();
 
-            return RedirectToAction("StepFive");
+            return RedirectToAction("EthereumBuyLink");
         }
 
         public ActionResult StepFive()
@@ -256,6 +258,11 @@ namespace InstaEthereum.Controllers
         }
 
         public ActionResult Support()
+        {
+            return View();
+        }
+
+        public ActionResult EthereumBuyLink()
         {
             return View();
         }

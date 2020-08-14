@@ -17,21 +17,21 @@
         <div class="divider"></div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
-                @Html.TextBox("Email", (string)@ViewBag.Email, new { @class = "form-control my-form-control", placeholder = "Enter your email", Readonly = "Readonly" })
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                @Html.TextBox("Email", (string)@ViewBag.Email, new { @class = "form-control my-form-control", placeholder = "Enter your Email Address.", Readonly = "Readonly" })
+                @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 15px;">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control my-form-control", placeholder = "Enter your name" })
-                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control my-form-control", placeholder = "Enter your Name." })
+                @*@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })*@
                 @*<input type="text" name="UserName" class="form-control my-form-control" placeholder="Enter your name" />*@
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 15px;">
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control my-form-control", placeholder = "Enter your mobile" })
-                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control my-form-control", placeholder = "Enter your Mobile Number." })
+                @*@Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })*@
                 @*<input type="text" name="PhoneNumber" class="form-control my-form-control" placeholder="Enter your mobile" />*@
             </div>
         </div>

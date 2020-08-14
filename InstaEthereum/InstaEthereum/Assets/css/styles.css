@@ -305,6 +305,9 @@ body {
     margin: 0;
 }
 
+.input-validation-error{
+    border: 1px solid red !important;
+}
 
 
 /*// Extra small devices (portrait phones, less than 576px)*/

@@ -18,10 +18,10 @@
         <div class="divider"></div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
-                @Html.TextBoxFor(m => m.WalletAddress, new { @class = "form-control my-form-control", placeholder = "Enter your Ethereum wallet address" })                
-                <p id="input-info">Minimum purchase of @Model.MinEthBuy ETH and maximum @Model.MaxEthBuy ETH</p>
+                @Html.TextBoxFor(m => m.WalletAddress, new { @class = "form-control my-form-control", placeholder = "Enter your Ethereum Wallet Address." })                
+                @*<p id="input-info">Minimum purchase of @Model.MinEthBuy ETH and maximum @Model.MaxEthBuy ETH</p>
                 @Html.ValidationMessageFor(m => m.WalletAddress, "", new { @class = "text-danger" })
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
             </div>
         </div>
         <div class="row">

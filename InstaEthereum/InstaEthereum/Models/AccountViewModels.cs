@@ -89,7 +89,7 @@ namespace InstaEthereum.Models
 
         [Required]
         [Phone]
-        [Display(Name = "Mobile")]
+        [Display(Name = "Mobile Number")]
         public string PhoneNumber { get; set; }
 
         [Required]
