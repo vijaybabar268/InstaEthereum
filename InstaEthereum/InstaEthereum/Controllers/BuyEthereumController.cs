@@ -233,6 +233,8 @@ namespace InstaEthereum.Controllers
             _context.Orders.Add(order);
             _context.SaveChanges();
 
+            var result = Helper.SendEmail(email);
+
             return RedirectToAction("EthereumBuyLink");
         }
 
