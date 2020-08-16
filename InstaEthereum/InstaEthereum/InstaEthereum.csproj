@@ -221,6 +221,7 @@
     <Compile Include="Areas\Admin\Controllers\SetPriceController.cs" />
     <Compile Include="Areas\Admin\Controllers\StocksController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\DisplayOrderViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\DisplaySetPriceViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\StockViewModel.cs" />

@@ -8,7 +8,7 @@ namespace InstaEthereum.ViewModels
 {
     public class StepOneViewModel
     {
-        public decimal SetPrice { get; set; }
+        public decimal EthPrice { get; set; }
 
         [Required]
         [Display(Name = "Ethereum Qty")]

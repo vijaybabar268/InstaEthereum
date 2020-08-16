@@ -17,22 +17,17 @@
         <div class="divider"></div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
-                @Html.TextBox("Email", (string)@ViewBag.Email, new { @class = "form-control my-form-control", placeholder = "Enter your Email Address.", Readonly = "Readonly" })
-                @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
+                @Html.TextBox("Email", (string)@ViewBag.Email, new { @class = "form-control my-form-control", placeholder = "Enter Email", Readonly = "Readonly" })
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 15px;">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control my-form-control", placeholder = "Enter your Name." })
-                @*@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })*@
-                @*<input type="text" name="UserName" class="form-control my-form-control" placeholder="Enter your name" />*@
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control my-form-control", placeholder = "Enter Name" })
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 15px;">
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control my-form-control", placeholder = "Enter your Mobile Number." })
-                @*@Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })*@
-                @*<input type="text" name="PhoneNumber" class="form-control my-form-control" placeholder="Enter your mobile" />*@
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control my-form-control", placeholder = "Enter Mobile No" })
             </div>
         </div>
         <div class="row">
@@ -42,8 +37,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center">
-                <button type="submit" class="btn btn-primary" style="margin-top: 0px; width: 200px; padding: 15px 0;">NEXT</button>
-                @*@Html.ActionLink("NEXT", "StepFour", "BuyEthereum", null, new { @class = "btn btn-primary", style = "margin-top: 0px;width: 200px;padding: 15px 0; " })*@
+                <button type="submit" class="btn btn-primary" style="margin-top: 0px; width: 200px; padding: 15px 0;">CONTINUE</button>
             </div>
         </div>
     }

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Buy";
     ViewBag.ImageStepCount = "1.png";
+    ViewBag.OneEthPrice = InstaEthereum.Models.Helper.parseValueIntoCurrency(Model.EthPrice);
 }
 
 <div class="content-div">
@@ -11,27 +12,18 @@
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
-                <h5 id="card-header">Login</h5>
+                <h5 id="card-header">Enter Email</h5>
             </div>
         </div>
         <div class="divider"></div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control my-form-control", placeholder = "Enter your Email Address." })                
-                @*<p id="input-info">
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger input-info" })
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                </p>*@                                
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control my-form-control", placeholder = "Enter Email" })
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 55px;">
-                <h5 id="price-text">1 Ethereum &nbsp;&nbsp;&nbsp;&nbsp; =&nbsp;&nbsp;&nbsp; @InstaEthereum.Models.Helper.parseValueIntoCurrency(Model.EthPrice)</h5>
-            </div>
-        </div>
+        </div>        
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center">
-                <button type="submit" class="btn btn-primary" style="margin-top: 60px; width: 200px; padding: 15px 0;">NEXT</button>
+                <button type="submit" class="btn btn-primary" style="margin-top: 60px; width: 200px; padding: 15px 0;">CONTINUE</button>
             </div>
         </div>
     }

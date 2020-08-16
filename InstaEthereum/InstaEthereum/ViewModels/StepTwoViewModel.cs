@@ -8,7 +8,7 @@ namespace InstaEthereum.ViewModels
 {
     public class StepTwoViewModel
     {
-        public decimal SetPrice { get; set; }
+        public decimal EthPrice { get; set; }
                 
         public decimal MinEthBuy { get; set; }
 

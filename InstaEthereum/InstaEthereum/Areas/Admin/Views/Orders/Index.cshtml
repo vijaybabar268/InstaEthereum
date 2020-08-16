@@ -17,7 +17,7 @@
         }
         else
         {
-            <table class="table table-bordered table-hover table-responsive">
+            <table class="table table-bordered table-hover table-responsive table-striped">
                 <thead>
                     <tr>
                         <th>Sr</th>
@@ -51,6 +51,10 @@
                                         if (item.Status == 1)
                                         {
                                             <span class="badge badge-pill bg-warning" style="background-color:green">Completed</span>
+                                        }
+                                        if (item.Status == 2)
+                                        {
+                                            <span class="badge badge-pill bg-warning" style="background-color:yellow;color:#000;">Incomplete</span>
                                         }
                                     }
                                 </td>

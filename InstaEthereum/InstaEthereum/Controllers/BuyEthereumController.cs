@@ -1,13 +1,7 @@
 ﻿using InstaEthereum.Models;
 using InstaEthereum.ViewModels;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace InstaEthereum.Controllers
@@ -20,9 +14,9 @@ namespace InstaEthereum.Controllers
         {
             _context = new ApplicationDbContext();
         }
-
+                
         public ActionResult StepStart()
-        {
+        {            
             Session.Remove("UserEmail");
             Session.Remove("EthereumQty");
             Session.Remove("WalletAddress");
@@ -69,7 +63,7 @@ namespace InstaEthereum.Controllers
         {
             var viewModel = new StepOneViewModel()
             {
-                SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
                 MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
                 MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
             };
@@ -83,7 +77,7 @@ namespace InstaEthereum.Controllers
         {
             var viewModel = new StepOneViewModel()
             {
-                SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
                 MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
                 MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
             };
@@ -111,7 +105,7 @@ namespace InstaEthereum.Controllers
         {
             var viewModel = new StepTwoViewModel()
             {
-                SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
                 MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
                 MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
             };
@@ -125,7 +119,7 @@ namespace InstaEthereum.Controllers
         {
             var viewModel = new StepTwoViewModel()
             {
-                SetPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
                 MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
                 MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
             };
@@ -220,6 +214,11 @@ namespace InstaEthereum.Controllers
                 ModelState.AddModelError("", "Something went wrong.");
                 return View("StepFour", model);
             }
+                        
+            Random rnd = new Random();
+            Int64 s1 = rnd.Next(000000, 999999);
+            Int64 s2 = Convert.ToInt64(DateTime.Now.ToString("ddMMyyyyHHmmss"));
+            var uniqueTransactionId = s2.ToString();
 
             var order = new Order
             {
@@ -227,7 +226,7 @@ namespace InstaEthereum.Controllers
                 OrderDateTime = DateTime.Now,
                 PurchasePrice = model.PayableAmount,
                 Status = 0,
-                TransactionId = "",
+                TransactionId = uniqueTransactionId,
                 UserId = userInDb.Id,
             };
 
@@ -266,5 +265,21 @@ namespace InstaEthereum.Controllers
         {
             return View();
         }
+
+        // Perform Exception Handling
+        //protected override void OnException(ExceptionContext filterContext)
+        //{
+        //    var controller = filterContext.RouteData.Values["controller"].ToString();
+        //    var action = filterContext.RouteData.Values["action"].ToString();
+
+        //    var ex = filterContext.Exception;
+        //    filterContext.ExceptionHandled = true;
+
+        //    filterContext.Result = new ViewResult()
+        //    {
+        //        ViewName = "Error"
+        //    };
+        //}
+
     }
 }

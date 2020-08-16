@@ -1,5 +1,14 @@
-﻿@{
-    ViewBag.Title = "Dashboard";    
+﻿@model InstaEthereum.Areas.Admin.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+
+    var totalUsers = Model.TotalUsers == 0 ? "NA" : Model.TotalUsers.ToString();
+
+    var TotalOrders = Model.TotalOrders == 0 ? "NA" : Model.TotalOrders.ToString();
+    var pendingOrders = Model.pendingOrders == 0 ? "NA" : Model.pendingOrders.ToString();
+    var CompleteOrders = Model.CompleteOrders == 0 ? "NA" : Model.CompleteOrders.ToString();
+    var InCompleteOrders = Model.InCompleteOrders == 0 ? "NA" : Model.InCompleteOrders.ToString();
 }
 
 @Html.Partial("_TopHeader")
@@ -9,17 +18,8 @@
         <div class="col-md-3">
             <div class="my-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">
-                        @{ 
-                            if ((int)ViewBag.TotalUsers == 0)
-                            {
-                                <span>NA</span>
-                            }
-                            else
-                            {
-                                <span>@ViewBag.TotalUsers</span>
-                            }
-                        }                        
+                    <h3 class="card-title text-center">                        
+                        @totalUsers
                     </h3>
                     <div class="divider"></div>
                     <h5 class="card-text text-center">Total Users</h5>
@@ -58,16 +58,16 @@
         <div class="col-md-3">
             <div class="my-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">25,365</h3>
+                    <h3 class="card-title text-center">@TotalOrders</h3>
                     <div class="divider"></div>
-                    <h5 class="card-text text-center">Final Transaction</h5>
+                    <h5 class="card-text text-center">Total Transaction</h5>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="my-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">253</h3>
+                    <h3 class="card-title text-center">@pendingOrders</h3>
                     <div class="divider"></div>
                     <h5 class="card-text text-center">Pending</h5>
                 </div>
@@ -76,7 +76,7 @@
         <div class="col-md-3">
             <div class="my-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">5,365</h3>
+                    <h3 class="card-title text-center">@CompleteOrders</h3>
                     <div class="divider"></div>
                     <h5 class="card-text text-center">Complete</h5>
                 </div>
@@ -85,7 +85,7 @@
         <div class="col-md-3">
             <div class="my-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">553</h3>
+                    <h3 class="card-title text-center">@InCompleteOrders</h3>
                     <div class="divider"></div>
                     <h5 class="card-text text-center">Incomplete</h5>
                 </div>

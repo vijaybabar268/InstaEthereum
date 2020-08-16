@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using InstaEthereum.Areas.Admin.ViewModels;
 using InstaEthereum.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -20,14 +21,17 @@ namespace InstaEthereum.Areas.Admin.Controllers
         }
 
         public ActionResult Index()
-        {
-            /*var role = _context.Roles.SingleOrDefault(u => u.Name == "User");
-            var totalUsers = _context.Users.Where(u => u.Roles.Any(r => (r.RoleId == role.Id))).Count();*/
+        {   
+            var viewModel = new DashboardViewModel()
+            {
+                TotalUsers = _context.AspNetUsers.Where(u => u.RoleId == 2).Count(),
+                TotalOrders = _context.Orders.Count(),
+                pendingOrders = _context.Orders.Where(s => s.Status == 0).Count(),
+                CompleteOrders = _context.Orders.Where(s => s.Status == 1).Count(),
+                InCompleteOrders = _context.Orders.Where(s => s.Status == 2).Count()
+            };
 
-            var totalUsers = _context.AspNetUsers.Where(u => u.RoleId == 2).Count();
-            ViewBag.TotalUsers = totalUsers;
-
-            return View();
+            return View(viewModel);
         }
 
         [HttpPost]
