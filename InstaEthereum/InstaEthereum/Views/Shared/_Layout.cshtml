@@ -66,13 +66,18 @@
 
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12 text-center" id="footer">
-                <h4 id="main-footer">
+                @*<h4 id="main-footer">
                     <img src="~/Assets/img/logo2.svg" height="50" />
-                </h4>
+                </h4>*@
                 <ul class="footer-nav">
-                    <li>@Html.ActionLink("Search Transaction", "SearchTransaction", "BuyEthereum")</li>
+                    <li>@Html.ActionLink("Track Transaction", "SearchTransaction", "BuyEthereum")</li>
                     <li class="pipe-divider">|</li>
-                    <li>@Html.ActionLink("Support", "Support", "BuyEthereum")</li>
+                    <li>@Html.ActionLink("Contact Support", "Support", "BuyEthereum")</li>
+                </ul>
+                <ul class="footer-nav" style="display: block; color: #fff; font-size: 12px; font-weight: 300; padding-top: 8px;">
+                    <li>
+                        <p>© instacrypto.io | All rights reserved</p>
+                    </li>                    
                 </ul>
             </div>
         </div>
