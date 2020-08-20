@@ -11,8 +11,12 @@ namespace InstaEthereum.ViewModels
         public decimal EthPrice { get; set; }
 
         [Required]
-        [Display(Name = "Ethereum Qty")]
+        [Display(Name = "ETH")]
         public decimal? EthereumQty { get; set; }
+
+        [Required]
+        [Display(Name = "INR")]
+        public decimal? EthereumINR { get; set; }
 
         public decimal MinEthBuy { get; set; }
 

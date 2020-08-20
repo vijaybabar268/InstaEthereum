@@ -234,13 +234,46 @@ namespace InstaEthereum.Controllers
             _context.SaveChanges();
 
             var result = Helper.SendEmail(email);
+            Session["EmailResult"] = result;
 
             return RedirectToAction("EthereumBuyLink");
         }
 
         public ActionResult StepFive()
         {
-            return View();
+            var userEmail = Request.QueryString["email"];
+            var date = Request.QueryString["dt"].Split('|')[0];
+            var time = Request.QueryString["dt"].Split('|')[1];
+            var linkDateTime = DateTime.Parse(date + " " + time).AddMinutes(5); // Link Expire after 5 Mins
+            var nowTime = DateTime.Now;
+
+            var viewModel = new StepFiveViewModel()
+            {
+                EthPrice = _context.SetPrices.FirstOrDefault(x => x.Status == true).Price,
+                MinEthBuy = _context.EthPurchaseRange.FirstOrDefault().Min,
+                MaxEthBuy = _context.EthPurchaseRange.FirstOrDefault().Max
+            };
+
+            if (linkDateTime > nowTime)
+            {
+                return View(viewModel);
+            }
+            else
+            {
+                return Content("Payment Link has been Expired.");
+            }                        
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StepFiveProcess(StepFiveViewModel model)
+        {            
+            if (!ModelState.IsValid)
+            {
+                return View("StepFive", model);
+            }
+
+            return RedirectToAction("Success");
         }
 
         public ActionResult Success()

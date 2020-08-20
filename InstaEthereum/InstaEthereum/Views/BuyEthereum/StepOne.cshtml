@@ -17,9 +17,19 @@
             </div>
         </div>
         <div class="divider"></div>
+        <div class="row" style="width: 80%; margin: 0 auto;">
+            <div class="col-md-5 col-5 col-sm-5 col-lg-5 col-xl-5" style="margin-top: 60px;">
+                @Html.TextBoxFor(m => m.EthereumQty, new { @class = "form-control my-form-control", placeholder = "Enter ETH", style="width:100%" })
+            </div>
+            <div class="col-md-2 col-2 col-sm-2 col-lg-2 col-xl-2" style="margin-top: 75px;text-align: center;">
+                =
+            </div>
+            <div class="col-md-5 col-5 col-sm-5 col-lg-5 col-xl-5" style="margin-top: 60px;">
+                @Html.TextBoxFor(m => m.EthereumINR, new { @class = "form-control my-form-control", placeholder = "Enter INR", style = "width:100%" })
+            </div>
+        </div>
         <div class="row">
-            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12" style="margin-top: 60px;">
-                @Html.TextBoxFor(m => m.EthereumQty, new { @class = "form-control my-form-control", placeholder = "Enter Ethereum Quantity" })
+            <div class="col-md-12 col-12 col-sm-12 col-lg-12 col-xl-12">
                 <p id="input-info">Minimum purchase of @Model.MinEthBuy ETH and maximum @Model.MaxEthBuy ETH</p>
             </div>
         </div>
@@ -30,3 +40,26 @@
         </div>
     }
 </div>
+
+<input type="hidden" id="EthPrice" value="@Model.EthPrice" />
+
+@section Scripts
+{   
+    <script>
+        $(document).ready(function () {
+            $("#EthereumQty").keyup(function () {                
+                var ethQty = Number($(this).val());
+                var ethINR = Number($("#EthPrice").val()) * ethQty;
+
+                $("#EthereumINR").val(ethINR.toFixed(2));
+            })  
+
+            $("#EthereumINR").keyup(function () {
+                var ethINR = Number($(this).val());
+                var ethQty = ethINR / Number($("#EthPrice").val());
+
+                $("#EthereumQty").val(ethQty.toFixed(2));
+            })  
+        });
+    </script>   
+}

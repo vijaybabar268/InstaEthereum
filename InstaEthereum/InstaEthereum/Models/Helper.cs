@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -31,9 +32,11 @@ namespace InstaEthereum.Models
             return _context.AspNetUsers.FirstOrDefault(u => u.Id == id);
         }
 
-        public static bool SendEmail(string to_email)
+        public static string SendEmail(string to_email)
         {
-            bool isEmailSent = false;
+            var isEmailSent = "false";
+            var liveBaseUrl = "http://instacrypto.io/";
+            var localBaseUrl = "https://localhost:44392/";
 
             try
             {
@@ -41,9 +44,12 @@ namespace InstaEthereum.Models
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress("vijbab.kalp@gmail.com", "Insta Ethereum");
                 message.To.Add(new MailAddress(to_email));
-                message.Subject = "Test Email";
+                message.Subject = "Insta Ethereum - Payment Link";
                 message.IsBodyHtml = true; //to make message body as html  
-                var htmlString = "Test Email";
+                var htmlString = @"Dear User,<br/><br/>" +
+                                  "Payment Link - <br/>"+ System.Configuration.ConfigurationManager.AppSettings["IsProduction"] == "true" ? liveBaseUrl : localBaseUrl + "BuyEthereum/StepFive?email=" + to_email+"&dt="+ DateTime.Now.ToString("d-M-yyyy|H:m:ss") + "<br/><br/><br/>" +
+                                  "Thanks and Regards,<br/>" +
+                                  "Team Insta Ethereum";
                 message.Body = htmlString;
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com"; //for gmail host  
@@ -53,11 +59,11 @@ namespace InstaEthereum.Models
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
 
-                isEmailSent = true;
+                isEmailSent = "true";
             }
             catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+            {                
+                isEmailSent = "Error:"+ ex.Message;
             }
 
             return isEmailSent;
