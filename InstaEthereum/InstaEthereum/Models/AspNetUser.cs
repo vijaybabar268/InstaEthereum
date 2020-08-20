@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InstaEthereum.Models
 {
@@ -11,6 +12,10 @@ namespace InstaEthereum.Models
         public string Password { get; set; }
         public string PhoneNumber { get; set; }        
         public string WalletAddress { get; set; }
+        public decimal? ETHPurchased { get; set; }
+        public int? TransactionCount { get; set; }
         public int RoleId { get; set; }
+
+        public IEnumerable<Order> Orders { get; set; }
     }
 }

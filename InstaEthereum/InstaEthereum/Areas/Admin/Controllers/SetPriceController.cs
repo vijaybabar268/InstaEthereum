@@ -87,24 +87,69 @@ namespace InstaEthereum.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
                 
-        public ActionResult GetPrice()
-        {            
-            // WazirX ETH Price
+        public ActionResult GetPrice(int id)
+        {
+            switch (id)
+            {
+                case 1:
+                    SetBinancePrice();
+                    break;
+                case 2:
+                    SetWazirXPrice();
+                    break;
+                default:
+                    break;
+            }
+            
+            TempData["Message"] = "ETH Price Set.";
+
+            return RedirectToAction("Index");
+        }
+
+        private void SetBinancePrice()
+        {
+            string usdEthPrice;
+            string OneUsdInrRate;
+
             using (var webClient = new WebClient())
             {
-                string rawJson = webClient.DownloadString("https://api.wazirx.com/api/v2/tickers");                
-                var jsonData = JObject.Parse(rawJson);                
-                var wazirxETHPrice = decimal.Parse(jsonData.Value<JObject>("ethinr").Properties()
-                                    .FirstOrDefault(x => x.Name == "buy").Value.ToString());
-
-                var priceInDb = _context.SetPrices.Find(2);
-                priceInDb.OriginalPrice = wazirxETHPrice;
-                
-                _context.SaveChanges();
+                string rawJson = webClient.DownloadString("https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT");
+                var jsonData = (JObject)JsonConvert.DeserializeObject(rawJson);
+                usdEthPrice = jsonData["price"].Value<string>();
             }
 
-            TempData["Message"] = "Wazirx ETH Price Set.";
-            return RedirectToAction("Index");
+            using (var webClient = new WebClient())
+            {
+                string rawJson = webClient.DownloadString("https://v6.exchangerate-api.com/v6/ef2a90f42c9893f7864d5177/latest/USD");
+                var jsonData = (JObject)JsonConvert.DeserializeObject(rawJson);
+                var conversionRates = jsonData["conversion_rates"];
+                OneUsdInrRate = conversionRates["INR"].Value<string>();
+            }
+
+            decimal binanceETHPrice = decimal.Parse(usdEthPrice) * decimal.Parse(OneUsdInrRate);
+
+            var priceInDb = _context.SetPrices.Find(1);
+            priceInDb.OriginalPrice = binanceETHPrice;
+
+            _context.SaveChanges();
+        }
+
+        private void SetWazirXPrice()
+        {
+            string wazirxETHPrice;
+
+            using (var webClient = new WebClient())
+            {
+                string rawJson = webClient.DownloadString("https://api.wazirx.com/api/v2/tickers");
+                var jsonData = (JObject)JsonConvert.DeserializeObject(rawJson);
+                var ethinr = jsonData["ethinr"];
+                wazirxETHPrice = ethinr["buy"].ToString();
+            }
+
+            var priceindb = _context.SetPrices.Find(2);
+            priceindb.OriginalPrice = decimal.Parse(wazirxETHPrice);
+
+            _context.SaveChanges();
         }
 
     }

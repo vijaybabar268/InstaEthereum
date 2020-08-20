@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<InstaEthereum.Models.AspNetUser>
+@using InstaEthereum.Models
 
 @{
     ViewBag.Title = "Users";
@@ -26,6 +27,7 @@
                         <th>User Name</th>
                         <th>Wallet Address</th>
                         <th>ETH Purchased</th>
+                        <th>Transaction Count</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -39,7 +41,8 @@
                                 <td>@item.PhoneNumber</td>
                                 <td>@item.UserName</td>
                                 <td>@item.WalletAddress</td>
-                                <td></td>
+                                <td>@item.ETHPurchased</td>
+                                <td>@Helper.GetTransactionCount(item.Id)</td>
                                 <td class="text-center">
                                     @using (@Html.BeginForm("Delete", "Users", FormMethod.Post, new { style = "display: inline;", onClick = "return confirm('Are you sure you want tp perform this action?')" }))
                                     {

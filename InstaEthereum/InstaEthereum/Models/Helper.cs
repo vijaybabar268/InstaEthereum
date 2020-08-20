@@ -68,5 +68,12 @@ namespace InstaEthereum.Models
 
             return isEmailSent;
         }
+
+        public static int GetTransactionCount(int id)
+        {
+            var getTransactionCount = _context.Orders.Where(c => c.UserId == id).Count();
+
+            return getTransactionCount;
+        }
     }
 }
