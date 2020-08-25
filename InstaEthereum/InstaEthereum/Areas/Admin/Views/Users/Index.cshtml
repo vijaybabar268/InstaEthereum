@@ -18,45 +18,48 @@
         }
         else
         {
-            <table class="table table-bordered table-hover table-responsive table-striped">
-                <thead>
-                    <tr>
-                        <th>Sr</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                        <th>User Name</th>
-                        <th>Wallet Address</th>
-                        <th>ETH Purchased</th>
-                        <th>Transaction Count</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@srNo</td>
-                                <td>@item.Email</td>
-                                <td>@item.PhoneNumber</td>
-                                <td>@item.UserName</td>
-                                <td>@item.WalletAddress</td>
-                                <td>@item.ETHPurchased</td>
-                                <td>@Helper.GetTransactionCount(item.Id)</td>
-                                <td class="text-center">
-                                    @using (@Html.BeginForm("Delete", "Users", FormMethod.Post, new { style = "display: inline;", onClick = "return confirm('Are you sure you want tp perform this action?')" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        @Html.Hidden("id", item.Id)
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    }
-                                </td>
-                            </tr>
-                            srNo++;
+            <div class="tbl-scrolled">
+                <table class="table table-bordered table-hover table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>User Name</th>
+                            <th>Wallet Address</th>
+                            <th>ETH Purchased</th>
+                            <th>Transaction Count</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@srNo</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.WalletAddress</td>
+                                    <td>@item.ETHPurchased</td>
+                                    <td>@Helper.GetTransactionCount(item.Id)</td>
+                                    <td class="text-center">
+                                        @using (@Html.BeginForm("Delete", "Users", FormMethod.Post, new { style = "display: inline;", onClick = "return confirm('Are you sure you want tp perform this action?')" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("id", item.Id)
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        }
+                                    </td>
+                                </tr>
+                                srNo++;
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+
         }
     }
 </div>

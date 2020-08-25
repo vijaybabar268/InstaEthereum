@@ -1,0 +1,53 @@
+﻿@model InstaEthereum.Areas.Admin.ViewModels.UpdateOrderViewModel
+
+@{
+    ViewBag.Title = "Update Order";
+}
+
+@Html.Partial("_TopHeader")
+
+<div class="main-content">
+    <div class="row" style="margin-bottom:20px;">
+    </div>
+</div>
+
+<div class="set-price-div">
+    <div class="row">
+        <div class="col-md-12">
+            <h5></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("UpdateProcess", "Orders", FormMethod.Post, null))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.OrderId)
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.TransactionStatusId, new { @class = "col-sm-4 col-form-label" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.TransactionStatusId, new SelectList(Model.TransactionStatus, "Id", "Name"), "--Select--", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EthTxnNo, new { @class = "col-sm-4 col-form-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.EthTxnNo, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-md-12 text-center" style="padding:40px 0;">
+                        <input type="submit" value="Save" class="btn btn-danger"  />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

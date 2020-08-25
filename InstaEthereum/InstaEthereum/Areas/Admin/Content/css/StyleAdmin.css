@@ -4,6 +4,7 @@ body {
     font-family: 'Poppins', sans-serif;
     padding: 0;
     margin: 0;
+    background: currentColor;
 }
 
 input,
@@ -103,7 +104,13 @@ textarea {
 .main-content {
     background: #f2f3f8;
     margin-top: 20px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    /*overflow: auto;
+    height: 82%;*/
+}
+.tbl-scrolled {
+    overflow: auto;
+    height: 780px;
 }
 .main-content .my-card {
     padding: 12px 15px;

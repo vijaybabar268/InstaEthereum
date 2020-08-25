@@ -51,7 +51,81 @@
             }
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Manage Stocks</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="margin-bottom:15px">Add Stock</button>
+
+                <table class="table table-bordered table-hover table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            <th>Date</th>
+                            <th>Opening Balance</th>
+                            <th>Purchased Qty</th>
+                            <th>Sold Qty</th>
+                            <th>Closing Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.Stocks)
+                            {
+                                <tr>
+                                    <td>@srNo</td>
+                                    <td>@string.Format("{0:dd MMM yyyy}", item.Datetime)</td>
+                                    <td>@item.OpeningBalance</td>
+                                    <td>@item.PurchaseQty</td>
+                                    <td>@item.SoldQty</td>
+                                    <td>@item.ClosingBalance</td>
+                                </tr>
+                                srNo++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        @using (Html.BeginForm("SaveStock", "Stocks", FormMethod.Post))
+        {            
+            @Html.AntiForgeryToken()
+            
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Stock</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EthereumQty, new { @class = "col-sm-4 col-form-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.EthereumQty, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger" style="margin-top:25px;">Save</button>
+                    </div>
+                </div>                
+            </div>
+        }
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <input type="hidden" id="alertMessage" value="@ViewBag.Message" />
 

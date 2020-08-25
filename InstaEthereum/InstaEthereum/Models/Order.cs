@@ -12,6 +12,7 @@ namespace InstaEthereum.Models
         public decimal EthereumQty { get; set; }
         public decimal PurchasePrice { get; set; }
         public int UserId { get; set; }
-        public byte Status { get; set; }    
+        public byte Status { get; set; }
+        public string ETHTXNNo { get; set; }
     }
 }

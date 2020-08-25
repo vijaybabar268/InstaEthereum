@@ -20,7 +20,7 @@ namespace InstaEthereum.Areas.Admin.Controllers
         {            
             var users = _context.AspNetUsers.Where(u => u.RoleId == 2).ToList();
                         
-            return View(users);
+            return View(users.OrderByDescending(x => x.Id));
         }
 
         [HttpPost]

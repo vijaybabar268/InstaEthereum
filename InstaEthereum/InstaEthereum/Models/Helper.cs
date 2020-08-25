@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstaEthereum.Areas.Admin.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -12,9 +13,25 @@ namespace InstaEthereum.Models
     {
         private static readonly ApplicationDbContext _context;
 
+        /* Order status */
+        public const int PaymentPending = 0;
+        public const int PaymentComplete = 1;
+        public const int ETHPending = 2;
+        public const int ETHComplete = 3;
+
+        public static IEnumerable<MyDropDown> OrderStatus { get; set; }
+
         static Helper()
         {
             _context = new ApplicationDbContext();
+
+            OrderStatus = new List<MyDropDown>()
+            {
+                new MyDropDown { Id= 0, Name="Payment Pending"},
+                new MyDropDown { Id= 1, Name="Payment Complete"},
+                new MyDropDown { Id= 2, Name="ETH Pending"},
+                new MyDropDown { Id= 3, Name="ETH Complete"}
+            };
         }
 
         public static string parseValueIntoCurrency(decimal number)
@@ -47,7 +64,7 @@ namespace InstaEthereum.Models
                 message.Subject = "Insta Ethereum - Payment Link";
                 message.IsBodyHtml = true; //to make message body as html  
                 var htmlString = @"Dear User,<br/><br/>" +
-                                  "Payment Link - <br/>"+ System.Configuration.ConfigurationManager.AppSettings["IsProduction"] == "true" ? liveBaseUrl : localBaseUrl + "BuyEthereum/StepFive?email=" + to_email+"&dt="+ DateTime.Now.ToString("d-M-yyyy|H:m:ss") + "<br/><br/><br/>" +
+                                  "Payment Link - <br/>" + System.Configuration.ConfigurationManager.AppSettings["IsProduction"] == "true" ? liveBaseUrl : localBaseUrl + "BuyEthereum/StepFive?email=" + to_email + "&dt=" + DateTime.Now.ToString("d-M-yyyy|H:m:ss") + "<br/><br/><br/>" +
                                   "Thanks and Regards,<br/>" +
                                   "Team Insta Ethereum";
                 message.Body = htmlString;
@@ -62,8 +79,8 @@ namespace InstaEthereum.Models
                 isEmailSent = "true";
             }
             catch (Exception ex)
-            {                
-                isEmailSent = "Error:"+ ex.Message;
+            {
+                isEmailSent = "Error:" + ex.Message;
             }
 
             return isEmailSent;

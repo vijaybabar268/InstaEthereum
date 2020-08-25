@@ -24,7 +24,8 @@ namespace InstaEthereum.Areas.Admin.Controllers
             {
                 Id = 1,
                 EthMinPurchaseLimit = _context.EthPurchaseRange.FirstOrDefault().Min,
-                EthMaxPurchaseLimit = _context.EthPurchaseRange.FirstOrDefault().Max
+                EthMaxPurchaseLimit = _context.EthPurchaseRange.FirstOrDefault().Max,
+                Stocks = _context.Stocks.ToList()
             };
 
             if (TempData["Message"] != null)
@@ -46,6 +47,24 @@ namespace InstaEthereum.Areas.Admin.Controllers
 
             _context.Entry(ethMinMaxPurchaaseRangeInDb).State = EntityState.Modified;
             _context.SaveChanges();
+
+            TempData["Message"] = "Successfully Updated.";
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveStock(StockViewModel viewModel)
+        {            
+            var stock = new Stock()
+            {
+                Datetime = DateTime.Now,
+                PurchaseQty = viewModel.EthereumQty
+            };
+
+            _context.Stocks.Add(stock);
+            _context.SaveChanges();            
 
             TempData["Message"] = "Successfully Updated.";
 

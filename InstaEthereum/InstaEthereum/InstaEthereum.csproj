@@ -225,6 +225,7 @@
     <Compile Include="Areas\Admin\ViewModels\DisplayOrderViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\DisplaySetPriceViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\StockViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\UpdateOrderViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BuyEthereumController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\Stock.cs" />
     <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\EthPurchaseRange.cs" />
     <Compile Include="Models\Helper.cs" />
@@ -291,6 +293,7 @@
     <Content Include="Areas\Admin\Views\Shared\_LayoutAdminPanel.cshtml" />
     <Content Include="Areas\Admin\Views\SetPrice\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Stocks\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Update.cshtml" />
     <None Include="Properties\PublishProfiles\instacrypto.io - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
