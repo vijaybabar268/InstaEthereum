@@ -16,7 +16,7 @@ namespace InstaEthereum.Areas.Admin.ViewModels
         [Display(Name = "Transaction Status")]
         public byte TransactionStatusId { get; set; }
 
-        [Display(Name = "Transaction No")]
+        [Display(Name = "Blockchain Transaction #")]
         public string EthTxnNo { get; set; }
     }
 

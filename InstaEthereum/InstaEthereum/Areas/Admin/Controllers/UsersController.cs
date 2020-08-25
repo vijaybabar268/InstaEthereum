@@ -25,11 +25,11 @@ namespace InstaEthereum.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
-            var adminInDb = _context.Users.Find(id);
+            var adminInDb = _context.AspNetUsers.Find(id);
 
-            _context.Users.Remove(adminInDb);
+            _context.AspNetUsers.Remove(adminInDb);
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Users");

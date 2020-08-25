@@ -41,7 +41,12 @@
                                     <td>@item.TransactionId</td>
                                     <td>@string.Format("{0:dd/MM/yyyy h:mm:ss tt}", item.OrderDateTime)</td>
                                     <td>
-                                        @InstaEthereum.Models.Helper.GetUserEmail(item.UserId).Email
+                                        @{
+                                            if (@InstaEthereum.Models.Helper.GetUserEmail(item.UserId) != null)
+                                            {
+                                                @InstaEthereum.Models.Helper.GetUserEmail(item.UserId).Email
+                                            }
+                                        }
                                     </td>
                                     <td>@item.EthereumQty</td>
                                     <td>@InstaEthereum.Models.Helper.parseValueIntoCurrency(@item.PurchasePrice)</td>
@@ -54,15 +59,15 @@
                                             }
                                             if (item.Status == 1)
                                             {
-                                                <span class="badge badge-pill" style="background-color:green">Payment Complete</span>
+                                                <span class="badge badge-pill" style="background-color:green">Payment Received</span>
                                             }
                                             if (item.Status == 2)
                                             {
-                                                <span class="badge badge-pill" style="background-color:yellow;color:#000;">ETH Pending</span>
+                                                <span class="badge badge-pill" style="background-color:yellow;color:#000;">Transfer Pending</span>
                                             }
                                             if (item.Status == 3)
                                             {
-                                                <span class="badge badge-pill" style="background-color:blue;color:#fff;">ETH Complete</span>
+                                                <span class="badge badge-pill" style="background-color:blue;color:#fff;">Completed Transfer</span>
                                             }
                                         }
                                     </td>

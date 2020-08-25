@@ -28,9 +28,9 @@ namespace InstaEthereum.Models
             OrderStatus = new List<MyDropDown>()
             {
                 new MyDropDown { Id= 0, Name="Payment Pending"},
-                new MyDropDown { Id= 1, Name="Payment Complete"},
-                new MyDropDown { Id= 2, Name="ETH Pending"},
-                new MyDropDown { Id= 3, Name="ETH Complete"}
+                new MyDropDown { Id= 1, Name="Payment Received"},
+                new MyDropDown { Id= 2, Name="Transfer Pending"},
+                new MyDropDown { Id= 3, Name="Completed Transfer"}
             };
         }
 
