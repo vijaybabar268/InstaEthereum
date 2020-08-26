@@ -50,7 +50,7 @@
                         <th>Original Price</th>
                         <th>Add + %</th>
                         <th>Final Price</th> 
-                        <th>Status</th>
+                        <th class="text-center">Selection</th>
                         <th class="text-center" width="25%">Action</th>
                     </tr>
                 </thead>
@@ -75,17 +75,17 @@
                                     <td>
                                         @InstaEthereum.Models.Helper.parseValueIntoCurrency(item.Price)
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         @{
                                             if (item.Status == true)
                                             {
                                                 @*<img src="~/Areas/Admin/Content/img/icons/selected.png" height="22" />*@
-                                                @Html.ActionLink("Selected", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn1 btn-defalt btn-sm js-set-price default1" })
+                                                @Html.ActionLink("Selected", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn1 btn-defalt btn-sm js-set-price default1", style= "background: yellowgreen;border-radius: 100px;padding: 1px 8px 2px 8px;color: #fff;" })
                                             }
                                             else
                                             {
                                                 @*<img src="~/Areas/Admin/Content/img/icons/notselected.png" height="22" />*@
-                                                @Html.ActionLink("Select", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn1 btn-defalt btn-sm js-set-price not-default1" })
+                                                @Html.ActionLink("Select", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn1 btn-defalt btn-sm js-set-price not-default1", style = "background: orange;border-radius: 100px;padding: 1px 8px 2px 8px;color: #fff;" })
                                             }
                                         }
                                     </td>

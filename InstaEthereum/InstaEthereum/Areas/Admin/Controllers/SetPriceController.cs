@@ -129,7 +129,14 @@ namespace InstaEthereum.Areas.Admin.Controllers
             decimal binanceETHPrice = decimal.Parse(usdEthPrice) * decimal.Parse(OneUsdInrRate);
 
             var priceInDb = _context.SetPrices.Find(1);
+
             priceInDb.OriginalPrice = binanceETHPrice;
+
+            /*Update add percentage to price*/
+            var OriginalPrice = priceInDb.OriginalPrice;
+            var AddPercentAmt = (OriginalPrice * priceInDb.AddPercent) / 100;
+            var Price = OriginalPrice + AddPercentAmt;                        
+            priceInDb.Price = Price;
 
             _context.SaveChanges();
         }
@@ -146,8 +153,14 @@ namespace InstaEthereum.Areas.Admin.Controllers
                 wazirxETHPrice = ethinr["buy"].ToString();
             }
 
-            var priceindb = _context.SetPrices.Find(2);
-            priceindb.OriginalPrice = decimal.Parse(wazirxETHPrice);
+            var priceInDb = _context.SetPrices.Find(2);
+            priceInDb.OriginalPrice = decimal.Parse(wazirxETHPrice);
+
+            /*Update add percentage to price*/
+            var OriginalPrice = priceInDb.OriginalPrice;
+            var AddPercentAmt = (OriginalPrice * priceInDb.AddPercent) / 100;
+            var Price = OriginalPrice + AddPercentAmt;
+            priceInDb.Price = Price;
 
             _context.SaveChanges();
         }
