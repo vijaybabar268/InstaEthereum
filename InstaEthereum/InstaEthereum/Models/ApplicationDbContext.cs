@@ -25,5 +25,6 @@ namespace InstaEthereum.Models
         public DbSet<EthPurchaseRange> EthPurchaseRange { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<MarketTime> MarketTimes { get; set; }
     }
 }

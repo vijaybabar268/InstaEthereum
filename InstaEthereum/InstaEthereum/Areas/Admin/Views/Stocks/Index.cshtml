@@ -60,7 +60,7 @@
         <div class="col-md-12">
             <div>
                 <!-- Trigger the modal with a button -->
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="margin-bottom:15px">Add Stock</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" style="margin-bottom:15px">Add Stock</button>
 
                 <table class="table table-bordered table-hover table-responsive table-striped">
                     <thead>
@@ -109,10 +109,10 @@
                     <h4 class="modal-title">Add Stock</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.EthereumQty, new { @class = "col-sm-4 col-form-label" })
+                    <div class="form-group">                        
+                        <label class="col-sm-4 col-form-label">Ethereum Qty</label>
                         <div class="col-md-8">
-                            @Html.TextBoxFor(m => m.EthereumQty, new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.EthereumQty, new { @class = "form-control", required="true" })
                         </div>
                     </div>
                     <div class="text-center">

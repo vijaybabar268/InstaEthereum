@@ -30,25 +30,7 @@
                     <h5 class="card-text text-center">WazirX ETH Price</h5>
                 </div>
             </div>
-        </div>
-        @*<div class="col-md-3">
-                <div class="my-card">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">9:00 AM</h3>
-                        <div class="divider"></div>
-                        <h5 class="card-text text-center">Opening Time</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="my-card">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">10:00 PM</h3>
-                        <div class="divider"></div>
-                        <h5 class="card-text text-center">Closing Time</h5>
-                    </div>
-                </div>
-            </div>*@
+        </div>       
     </div>
 </div>
 
@@ -97,17 +79,19 @@
                                         @{
                                             if (item.Status == true)
                                             {
-                                                <img src="~/Areas/Admin/Content/img/icons/selected.png" height="22" />
+                                                @*<img src="~/Areas/Admin/Content/img/icons/selected.png" height="22" />*@
+                                                @Html.ActionLink("Selected", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn1 btn-defalt btn-sm js-set-price default1" })
                                             }
                                             else
                                             {
-                                                <img src="~/Areas/Admin/Content/img/icons/notselected.png" height="22" />
+                                                @*<img src="~/Areas/Admin/Content/img/icons/notselected.png" height="22" />*@
+                                                @Html.ActionLink("Select", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn1 btn-defalt btn-sm js-set-price not-default1" })
                                             }
                                         }
                                     </td>
                                     <td class="text-center">
                                         <button type="submit" class="btn btn-danger btn-sm">Set Price</button>
-                                        @Html.ActionLink("Set Default", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn btn-danger btn-sm js-set-price" })
+                                        @*@Html.ActionLink("Set Default", "ToggleDefault", "SetPrice", new { id = item.Id }, new { @class = "btn btn-danger btn-sm js-set-price" })*@
 
                                         @{
                                             if (item.Id == 1)

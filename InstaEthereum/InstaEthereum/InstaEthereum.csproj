@@ -217,6 +217,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MarketTimesController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\SetPriceController.cs" />
     <Compile Include="Areas\Admin\Controllers\StocksController.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\MarketTime.cs" />
     <Compile Include="Models\Stock.cs" />
     <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\EthPurchaseRange.cs" />
@@ -252,9 +254,9 @@
     <Compile Include="ViewModels\StepTwoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Content\css\StyleAdmin.css" />
-    <Content Include="Areas\Admin\Content\img\icons\notselected.png" />
-    <Content Include="Areas\Admin\Content\img\icons\selected.png" />
+    <Content Include="Areas\Admin\Assets\css\StyleAdmin.css" />
+    <Content Include="Areas\Admin\Assets\img\icons\notselected.png" />
+    <Content Include="Areas\Admin\Assets\img\icons\selected.png" />
     <Content Include="Assets\bootstrap-theme.css" />
     <Content Include="Assets\bootstrap-theme.min.css" />
     <Content Include="Assets\bootstrap.css" />
@@ -294,6 +296,7 @@
     <Content Include="Areas\Admin\Views\SetPrice\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Stocks\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\MarketTimes\Index.cshtml" />
     <None Include="Properties\PublishProfiles\instacrypto.io - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -351,7 +354,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Content\js\" />
+    <Folder Include="Areas\Admin\Assets\js\" />
     <Folder Include="Areas\Admin\Data\" />
   </ItemGroup>
   <ItemGroup>
