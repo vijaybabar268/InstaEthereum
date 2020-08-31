@@ -225,7 +225,7 @@ namespace InstaEthereum.Controllers
                 EthereumQty = model.EthereumQty,
                 OrderDateTime = DateTime.Now,
                 PurchasePrice = model.PayableAmount,
-                Status = Helper.PaymentPending,
+                Status = (byte)OrderStatus.PaymentPending,
                 TransactionId = uniqueTransactionId,
                 UserId = userInDb.Id,
             };

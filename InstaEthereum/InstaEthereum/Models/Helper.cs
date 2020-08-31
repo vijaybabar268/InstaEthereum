@@ -9,16 +9,18 @@ using System.Web;
 
 namespace InstaEthereum.Models
 {
+    public enum OrderStatus
+    {
+        PaymentPending = 0,
+        PaymentCompleted = 1,
+        TransferPending = 2,
+        CompletedTransfer = 3 
+    }
+
     public static class Helper
     {
         private static readonly ApplicationDbContext _context;
-
-        /* Order status */
-        public const int PaymentPending = 0;
-        public const int PaymentComplete = 1;
-        public const int ETHPending = 2;
-        public const int ETHComplete = 3;
-
+                
         public static IEnumerable<MyDropDown> OrderStatus { get; set; }
 
         static Helper()
